@@ -69,7 +69,7 @@ public class Erregistratu extends JFrame {
 		contentPane.add(lblTamaina);
 		
 		Choice agentziaChoice = new Choice();
-		agentziaChoice.setBounds(206, 308, 83, 20);
+		agentziaChoice.setBounds(206, 302, 83, 20);
 		contentPane.add(agentziaChoice);
 		
 		JRadioButton txikiaRadioButton = new JRadioButton("Txikia");
@@ -91,7 +91,7 @@ public class Erregistratu extends JFrame {
 		
 		pasahitzaField = new JPasswordField();
 		pasahitzaLabel.setLabelFor(pasahitzaField);
-		pasahitzaField.setBounds(206, 143, 83, 11);
+		pasahitzaField.setBounds(206, 139, 173, 19);
 		contentPane.add(pasahitzaField);
 		
 		erabiltzaileField = new JTextField();

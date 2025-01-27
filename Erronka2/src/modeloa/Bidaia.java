@@ -1,5 +1,7 @@
 package modeloa;
 
+import java.util.ArrayList;
+
 public class Bidaia {
 
 	private String identifikatzailea;
@@ -10,9 +12,27 @@ public class Bidaia {
 	private String dataAmaiera;
 	private String iraupena;
 	private String helmuga;
-	private String zerbitzuak;
+	private ArrayList <Zerbitzuak> Zerbitzuak;
 	private String pasahitza;
 	private String erabiltzaile;
+	
+	
+
+	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera,
+			String dataAmaiera, String iraupena, String helmuga, Zerbitzuak Zerbitzuak, String pasahitza,
+			String erabiltzaile) {
+		this.identifikatzailea = identifikatzailea;
+		this.izena = izena;
+		this.deskribapena = deskribapena;
+		this.bidaiaMota = bidaiaMota;
+		this.dataIrteera = dataIrteera;
+		this.dataAmaiera = dataAmaiera;
+		this.iraupena = iraupena;
+		this.helmuga = helmuga;
+		this.Zerbitzuak = new ArrayList<Zerbitzuak>();
+		this.pasahitza = pasahitza;
+		this.erabiltzaile = erabiltzaile;
+	}
 
 	public String getIdentifikatzailea() {
 		return identifikatzailea;
@@ -78,37 +98,22 @@ public class Bidaia {
 		this.helmuga = helmuga;
 	}
 
-	public String getZerbitzuak() {
-		return zerbitzuak;
+	public ArrayList<modeloa.Zerbitzuak> getZerbitzuak() {
+		return Zerbitzuak;
 	}
 
-	public void setZerbitzuak(String zerbitzuak) {
-		this.zerbitzuak = zerbitzuak;
-	}
-
-	public String getPasahitza() {
-		return pasahitza;
-	}
-
-	public void setPasahitza(String pasahitza) {
-		this.pasahitza = pasahitza;
-	}
-
-	public String getErabiltzaile() {
-		return erabiltzaile;
-	}
-
-	public void setErabiltzaile(String erabiltzaile) {
-		this.erabiltzaile = erabiltzaile;
+	public void setZerbitzuak(ArrayList<modeloa.Zerbitzuak> Zerbitzuak) {
+		this.Zerbitzuak = Zerbitzuak;
 	}
 
 	@Override
 	public String toString() {
 		return "Bidaia [identifikatzailea=" + identifikatzailea + ", izena=" + izena + ", deskribapena=" + deskribapena
 				+ ", bidaiaMota=" + bidaiaMota + ", dataIrteera=" + dataIrteera + ", dataAmaiera=" + dataAmaiera
-				+ ", iraupena=" + iraupena + ", helmuga=" + helmuga + ", zerbitzuak=" + zerbitzuak + ", pasahitza="
+				+ ", iraupena=" + iraupena + ", helmuga=" + helmuga + ", Zerbitzuak=" + Zerbitzuak + ", pasahitza="
 				+ pasahitza + ", erabiltzaile=" + erabiltzaile + "]";
 	}
+
 
 
 

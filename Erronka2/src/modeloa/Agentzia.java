@@ -1,5 +1,7 @@
 package modeloa;
 
+import java.util.ArrayList;
+
 public class Agentzia {
 
 	private String identifikatzailea;
@@ -10,6 +12,7 @@ public class Agentzia {
 	private String agentziaMota;
 	private String pasahitza;
 	private String erabiltzaile;
+	private ArrayList <Bidaia> Bidaiak;
 
 	public Agentzia(String identifikatzailea, String izena, String logoa, String markaKolorea, String langileKopurua,
 			String agentziaMota, String pasahitza, String erabiltzaile) {
@@ -21,6 +24,14 @@ public class Agentzia {
 		this.agentziaMota = agentziaMota;
 		this.pasahitza = pasahitza;
 		this.erabiltzaile = erabiltzaile;
+	}
+	
+	public ArrayList<Bidaia> getBidaiak() {
+		return Bidaiak;
+	}
+
+	public void setBidaiak(ArrayList<Bidaia> bidaiak) {
+		Bidaiak = bidaiak;
 	}
 
 	public String getIdentifikatzailea() {
