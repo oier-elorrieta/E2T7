@@ -1,5 +1,6 @@
 package modeloa;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Bidaia {
@@ -8,8 +9,8 @@ public class Bidaia {
 	private String izena;
 	private String deskribapena;
 	private String bidaiaMota;
-	private String dataIrteera;
-	private String dataAmaiera;
+	private Date dataIrteera;
+	private Date dataAmaiera;
 	private String iraupena;
 	private String helmuga;
 	private ArrayList <Zerbitzuak> Zerbitzuak;
@@ -18,9 +19,8 @@ public class Bidaia {
 	
 	
 
-	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera,
-			String dataAmaiera, String iraupena, String helmuga, Zerbitzuak Zerbitzuak, String pasahitza,
-			String erabiltzaile) {
+	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, Date dataIrteera, Date dataAmaiera, String iraupena, String helmuga, Zerbitzuak Zerbitzuak, String pasahitza, String erabiltzaile) {
+		
 		this.identifikatzailea = identifikatzailea;
 		this.izena = izena;
 		this.deskribapena = deskribapena;

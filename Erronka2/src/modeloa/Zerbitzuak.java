@@ -1,36 +1,34 @@
 package modeloa;
 
+import java.sql.Date;
+
 public class Zerbitzuak {
 
 	private double prezioaOstatua;
-	private String sarreraEguna;
-	private String irteeraEguna;
+	private Date sarreraEguna;
+	private Date irteeraEguna;
 	private String logelaMota;
 	private String ostatua;
 	private String hegaldia;
 	private String besteZerbitzuak;
-	private String prezioaBesteZerbitzuak;
+	private double prezioaBesteZerbitzuak;
 	private boolean joanEtorri;
 	private String jatorrizkoAireportua;
 	private String helmugakoAireportua;
 	private String hegaldiKodea;
 	private String aeroLinea;
 	private double prezioaHegaldia;
-	private String irteeraData;
+	private Date irteeraData;
 	private String irteeraOrdutegia;
 	private String bidaiarenIraupena;
-	private String itzuleraData;
-	private String itzuleraOrdua;
+	private Date itzuleraData;
+	private Date itzuleraOrdua;
 	private String bidaiarenIraupenaBuelta;
 	private String hegaldiKodeaBuelta;
 	private String aeroLineaBuelta;
 	
-	public Zerbitzuak(double prezioaOstatua, String sarreraEguna, String irteeraEguna, String logelaMota,
-			String ostatua, String hegaldia, String besteZerbitzuak, String prezioaBesteZerbitzuak, boolean joanEtorri,
-			String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea,
-			double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, String bidaiarenIraupena,
-			String itzuleraData, String itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta,
-			String aeroLineaBuelta) {
+	public Zerbitzuak(double prezioaOstatua, Date sarreraEguna, Date irteeraEguna, String logelaMota, String ostatua, String hegaldia, String besteZerbitzuak, double prezioaBesteZerbitzuak, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, Date irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, Date itzuleraData, Date itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+		
 		this.prezioaOstatua = prezioaOstatua;
 		this.sarreraEguna = sarreraEguna;
 		this.irteeraEguna = irteeraEguna;

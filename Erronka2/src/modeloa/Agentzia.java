@@ -14,8 +14,7 @@ public class Agentzia {
 	private String erabiltzaile;
 	private ArrayList <Bidaia> Bidaiak;
 
-	public Agentzia(String identifikatzailea, String izena, String logoa, String markaKolorea, String langileKopurua,
-			String agentziaMota, String pasahitza, String erabiltzaile) {
+	public Agentzia(String identifikatzailea, String izena, String logoa, String markaKolorea, String langileKopurua, String agentziaMota, String pasahitza, String erabiltzaile, ArrayList<Bidaia> Bidaiak) {
 		this.identifikatzailea = identifikatzailea;
 		this.izena = izena;
 		this.logoa = logoa;
@@ -24,14 +23,7 @@ public class Agentzia {
 		this.agentziaMota = agentziaMota;
 		this.pasahitza = pasahitza;
 		this.erabiltzaile = erabiltzaile;
-	}
-	
-	public ArrayList<Bidaia> getBidaiak() {
-		return Bidaiak;
-	}
-
-	public void setBidaiak(ArrayList<Bidaia> bidaiak) {
-		Bidaiak = bidaiak;
+		this.Bidaiak = new ArrayList<Bidaia>();
 	}
 
 	public String getIdentifikatzailea() {
