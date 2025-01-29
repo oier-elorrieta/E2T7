@@ -13,11 +13,7 @@ public class Bidaia {
 	private Date dataAmaiera;
 	private String iraupena;
 	private String helmuga;
-	private ArrayList <Zerbitzuak> Zerbitzuak;
-	private String pasahitza;
-	private String erabiltzaile;
-	
-	
+	private ArrayList <Zerbitzuak> Zerbitzuak;	
 
 	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, Date dataIrteera, Date dataAmaiera, String iraupena, String helmuga, Zerbitzuak Zerbitzuak, String pasahitza, String erabiltzaile) {
 		
@@ -30,8 +26,6 @@ public class Bidaia {
 		this.iraupena = iraupena;
 		this.helmuga = helmuga;
 		this.Zerbitzuak = new ArrayList<Zerbitzuak>();
-		this.pasahitza = pasahitza;
-		this.erabiltzaile = erabiltzaile;
 	}
 
 	public String getIdentifikatzailea() {
@@ -66,19 +60,19 @@ public class Bidaia {
 		this.bidaiaMota = bidaiaMota;
 	}
 
-	public String getDataIrteera() {
+	public Date getDataIrteera() {
 		return dataIrteera;
 	}
 
-	public void setDataIrteera(String dataIrteera) {
+	public void setDataIrteera(Date dataIrteera) {
 		this.dataIrteera = dataIrteera;
 	}
 	
-	public String getDataAmaiera() {
+	public Date getDataAmaiera() {
 		return dataAmaiera;
 	}
 
-	public void setDataAmaiera(String dataAmaiera) {
+	public void setDataAmaiera(Date dataAmaiera) {
 		this.dataAmaiera = dataAmaiera;
 	}
 
@@ -110,12 +104,7 @@ public class Bidaia {
 	public String toString() {
 		return "Bidaia [identifikatzailea=" + identifikatzailea + ", izena=" + izena + ", deskribapena=" + deskribapena
 				+ ", bidaiaMota=" + bidaiaMota + ", dataIrteera=" + dataIrteera + ", dataAmaiera=" + dataAmaiera
-				+ ", iraupena=" + iraupena + ", helmuga=" + helmuga + ", Zerbitzuak=" + Zerbitzuak + ", pasahitza="
-				+ pasahitza + ", erabiltzaile=" + erabiltzaile + "]";
+				+ ", iraupena=" + iraupena + ", helmuga=" + helmuga + ", Zerbitzuak=" + Zerbitzuak + "]";
 	}
-
-
-
-
 
 }

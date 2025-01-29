@@ -52,6 +52,75 @@ public class Zerbitzuak {
 		this.hegaldiKodeaBuelta = hegaldiKodeaBuelta;
 		this.aeroLineaBuelta = aeroLineaBuelta;
 	}
+	
+	
+	//Ostatua konstruktorea
+	public Zerbitzuak(double prezioaOstatua, Date sarreraEguna, Date irteeraEguna, String logelaMota, String ostatua) {
+		
+		this.prezioaOstatua = prezioaOstatua;
+		this.sarreraEguna = sarreraEguna;
+		this.irteeraEguna = irteeraEguna;
+		this.logelaMota = logelaMota;
+		this.ostatua = ostatua;
+	}
+	
+	//Beste zerbitzuak konstruktorea
+	public Zerbitzuak(String besteZerbitzuak, double prezioaBesteZerbitzuak) {
+		
+		this.besteZerbitzuak = besteZerbitzuak;
+		this.prezioaBesteZerbitzuak = prezioaBesteZerbitzuak;
+	}
+
+
+	//Joanetorri hegazkina kosntruktorea
+	public Zerbitzuak(String hegaldia, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, Date irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, Date itzuleraData, Date itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+		
+		this.hegaldia = hegaldia;
+		this.joanEtorri = joanEtorri;
+		this.jatorrizkoAireportua = jatorrizkoAireportua;
+		this.helmugakoAireportua = helmugakoAireportua;
+		this.hegaldiKodea = hegaldiKodea;
+		this.aeroLinea = aeroLinea;
+		this.prezioaHegaldia = prezioaHegaldia;
+		this.irteeraData = irteeraData;
+		this.irteeraOrdutegia = irteeraOrdutegia;
+		this.bidaiarenIraupena = bidaiarenIraupena;
+		this.itzuleraData = itzuleraData;
+		this.itzuleraOrdua = itzuleraOrdua;
+		this.bidaiarenIraupenaBuelta = bidaiarenIraupenaBuelta;
+		this.hegaldiKodeaBuelta = hegaldiKodeaBuelta;
+		this.aeroLineaBuelta = aeroLineaBuelta;
+	}
+
+	//Joan hegazkina konstruktorea
+	public Zerbitzuak(String hegaldia, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, Date irteeraData, String irteeraOrdutegia, String bidaiarenIraupena) {
+		
+		this.hegaldia = hegaldia;
+		this.jatorrizkoAireportua = jatorrizkoAireportua;
+		this.helmugakoAireportua = helmugakoAireportua;
+		this.hegaldiKodea = hegaldiKodea;
+		this.aeroLinea = aeroLinea;
+		this.prezioaHegaldia = prezioaHegaldia;
+		this.irteeraData = irteeraData;
+		this.irteeraOrdutegia = irteeraOrdutegia;
+		this.bidaiarenIraupena = bidaiarenIraupena;
+	}
+	
+	//Etorri hegazkina konstruktorea
+	public Zerbitzuak(String hegaldia, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, double prezioaHegaldia, Date itzuleraData, Date itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+		
+		this.hegaldia = hegaldia;
+		this.joanEtorri = joanEtorri;
+		this.jatorrizkoAireportua = jatorrizkoAireportua;
+		this.helmugakoAireportua = helmugakoAireportua;
+		this.prezioaHegaldia = prezioaHegaldia;
+		this.itzuleraData = itzuleraData;
+		this.itzuleraOrdua = itzuleraOrdua;
+		this.bidaiarenIraupenaBuelta = bidaiarenIraupenaBuelta;
+		this.hegaldiKodeaBuelta = hegaldiKodeaBuelta;
+		this.aeroLineaBuelta = aeroLineaBuelta;
+	}
+
 
 	public double getPrezioaOstatua() {
 		return prezioaOstatua;
@@ -61,19 +130,19 @@ public class Zerbitzuak {
 		this.prezioaOstatua = prezioaOstatua;
 	}
 
-	public String getSarreraEguna() {
+	public Date getSarreraEguna() {
 		return sarreraEguna;
 	}
 
-	public void setSarreraEguna(String sarreraEguna) {
+	public void setSarreraEguna(Date sarreraEguna) {
 		this.sarreraEguna = sarreraEguna;
 	}
 
-	public String getIrteeraEguna() {
+	public Date getIrteeraEguna() {
 		return irteeraEguna;
 	}
 
-	public void setIrteeraEguna(String irteeraEguna) {
+	public void setIrteeraEguna(Date irteeraEguna) {
 		this.irteeraEguna = irteeraEguna;
 	}
 
@@ -109,11 +178,11 @@ public class Zerbitzuak {
 		this.besteZerbitzuak = besteZerbitzuak;
 	}
 
-	public String getPrezioaBesteZerbitzuak() {
+	public double getPrezioaBesteZerbitzuak() {
 		return prezioaBesteZerbitzuak;
 	}
 
-	public void setPrezioaBesteZerbitzuak(String prezioaBesteZerbitzuak) {
+	public void setPrezioaBesteZerbitzuak(double prezioaBesteZerbitzuak) {
 		this.prezioaBesteZerbitzuak = prezioaBesteZerbitzuak;
 	}
 
@@ -165,11 +234,11 @@ public class Zerbitzuak {
 		this.prezioaHegaldia = prezioaHegaldia;
 	}
 
-	public String getIrteeraData() {
+	public Date getIrteeraData() {
 		return irteeraData;
 	}
 
-	public void setIrteeraData(String irteeraData) {
+	public void setIrteeraData(Date irteeraData) {
 		this.irteeraData = irteeraData;
 	}
 
@@ -189,19 +258,19 @@ public class Zerbitzuak {
 		this.bidaiarenIraupena = bidaiarenIraupena;
 	}
 
-	public String getItzuleraData() {
+	public Date getItzuleraData() {
 		return itzuleraData;
 	}
 
-	public void setItzuleraData(String itzuleraData) {
+	public void setItzuleraData(Date itzuleraData) {
 		this.itzuleraData = itzuleraData;
 	}
 
-	public String getItzuleraOrdua() {
+	public Date getItzuleraOrdua() {
 		return itzuleraOrdua;
 	}
 
-	public void setItzuleraOrdua(String itzuleraOrdua) {
+	public void setItzuleraOrdua(Date itzuleraOrdua) {
 		this.itzuleraOrdua = itzuleraOrdua;
 	}
 
