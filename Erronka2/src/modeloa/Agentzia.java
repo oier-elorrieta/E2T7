@@ -12,6 +12,7 @@ public class Agentzia {
 	private String agentziaMota;
 	private String pasahitza;
 	private String erabiltzaile;
+	@SuppressWarnings("unused")
 	private ArrayList <Bidaia> Bidaiak;
 
 	public Agentzia(String identifikatzailea, String izena, String logoa, String markaKolorea, String langileKopurua, String agentziaMota, String pasahitza, String erabiltzaile, ArrayList<Bidaia> Bidaiak) {

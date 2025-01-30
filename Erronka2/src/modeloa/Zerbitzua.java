@@ -1,12 +1,10 @@
 package modeloa;
 
-import java.sql.Date;
-
-public class Zerbitzuak {
+public class Zerbitzua {
 
 	private double prezioaOstatua;
-	private Date sarreraEguna;
-	private Date irteeraEguna;
+	private String sarreraEguna;
+	private String irteeraEguna;
 	private String logelaMota;
 	private String ostatua;
 	private String hegaldia;
@@ -18,16 +16,16 @@ public class Zerbitzuak {
 	private String hegaldiKodea;
 	private String aeroLinea;
 	private double prezioaHegaldia;
-	private Date irteeraData;
+	private String irteeraData;
 	private String irteeraOrdutegia;
 	private String bidaiarenIraupena;
-	private Date itzuleraData;
-	private Date itzuleraOrdua;
+	private String itzuleraData;
+	private String itzuleraOrdua;
 	private String bidaiarenIraupenaBuelta;
 	private String hegaldiKodeaBuelta;
 	private String aeroLineaBuelta;
 	
-	public Zerbitzuak(double prezioaOstatua, Date sarreraEguna, Date irteeraEguna, String logelaMota, String ostatua, String hegaldia, String besteZerbitzuak, double prezioaBesteZerbitzuak, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, Date irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, Date itzuleraData, Date itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+	public Zerbitzua(double prezioaOstatua, String sarreraEguna, String irteeraEguna, String logelaMota, String ostatua, String hegaldia, String besteZerbitzuak, double prezioaBesteZerbitzuak, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, String itzuleraData, String itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
 		
 		this.prezioaOstatua = prezioaOstatua;
 		this.sarreraEguna = sarreraEguna;
@@ -55,7 +53,7 @@ public class Zerbitzuak {
 	
 	
 	//Ostatua konstruktorea
-	public Zerbitzuak(double prezioaOstatua, Date sarreraEguna, Date irteeraEguna, String logelaMota, String ostatua) {
+	public Zerbitzua(double prezioaOstatua, String sarreraEguna, String irteeraEguna, String logelaMota, String ostatua) {
 		
 		this.prezioaOstatua = prezioaOstatua;
 		this.sarreraEguna = sarreraEguna;
@@ -65,7 +63,7 @@ public class Zerbitzuak {
 	}
 	
 	//Beste zerbitzuak konstruktorea
-	public Zerbitzuak(String besteZerbitzuak, double prezioaBesteZerbitzuak) {
+	public Zerbitzua(String besteZerbitzuak, double prezioaBesteZerbitzuak) {
 		
 		this.besteZerbitzuak = besteZerbitzuak;
 		this.prezioaBesteZerbitzuak = prezioaBesteZerbitzuak;
@@ -73,7 +71,7 @@ public class Zerbitzuak {
 
 
 	//Joanetorri hegazkina kosntruktorea
-	public Zerbitzuak(String hegaldia, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, Date irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, Date itzuleraData, Date itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+	public Zerbitzua(String hegaldia, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, String itzuleraData, String itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
 		
 		this.hegaldia = hegaldia;
 		this.joanEtorri = joanEtorri;
@@ -93,7 +91,7 @@ public class Zerbitzuak {
 	}
 
 	//Joan hegazkina konstruktorea
-	public Zerbitzuak(String hegaldia, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, Date irteeraData, String irteeraOrdutegia, String bidaiarenIraupena) {
+	public Zerbitzua(String hegaldia, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, String bidaiarenIraupena) {
 		
 		this.hegaldia = hegaldia;
 		this.jatorrizkoAireportua = jatorrizkoAireportua;
@@ -107,7 +105,7 @@ public class Zerbitzuak {
 	}
 	
 	//Etorri hegazkina konstruktorea
-	public Zerbitzuak(String hegaldia, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, double prezioaHegaldia, Date itzuleraData, Date itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+	public Zerbitzua(String hegaldia, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, double prezioaHegaldia, String itzuleraData, String itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
 		
 		this.hegaldia = hegaldia;
 		this.joanEtorri = joanEtorri;
@@ -130,19 +128,19 @@ public class Zerbitzuak {
 		this.prezioaOstatua = prezioaOstatua;
 	}
 
-	public Date getSarreraEguna() {
+	public String getSarreraEguna() {
 		return sarreraEguna;
 	}
 
-	public void setSarreraEguna(Date sarreraEguna) {
+	public void setSarreraEguna(String sarreraEguna) {
 		this.sarreraEguna = sarreraEguna;
 	}
 
-	public Date getIrteeraEguna() {
+	public String getIrteeraEguna() {
 		return irteeraEguna;
 	}
 
-	public void setIrteeraEguna(Date irteeraEguna) {
+	public void setIrteeraEguna(String irteeraEguna) {
 		this.irteeraEguna = irteeraEguna;
 	}
 
@@ -234,11 +232,11 @@ public class Zerbitzuak {
 		this.prezioaHegaldia = prezioaHegaldia;
 	}
 
-	public Date getIrteeraData() {
+	public String getIrteeraData() {
 		return irteeraData;
 	}
 
-	public void setIrteeraData(Date irteeraData) {
+	public void setIrteeraData(String irteeraData) {
 		this.irteeraData = irteeraData;
 	}
 
@@ -258,19 +256,19 @@ public class Zerbitzuak {
 		this.bidaiarenIraupena = bidaiarenIraupena;
 	}
 
-	public Date getItzuleraData() {
+	public String getItzuleraData() {
 		return itzuleraData;
 	}
 
-	public void setItzuleraData(Date itzuleraData) {
+	public void setItzuleraData(String itzuleraData) {
 		this.itzuleraData = itzuleraData;
 	}
 
-	public Date getItzuleraOrdua() {
+	public String getItzuleraOrdua() {
 		return itzuleraOrdua;
 	}
 
-	public void setItzuleraOrdua(Date itzuleraOrdua) {
+	public void setItzuleraOrdua(String itzuleraOrdua) {
 		this.itzuleraOrdua = itzuleraOrdua;
 	}
 
