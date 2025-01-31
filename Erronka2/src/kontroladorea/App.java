@@ -87,41 +87,41 @@ public class App extends JFrame {
         }
 	
 	
-	ZerbitzuakDAO zerbitzuaDAO = new ZerbitzuakDAO();
+		ZerbitzuakDAO zerbitzuaDAO = new ZerbitzuakDAO();
+		
+		List<Zerbitzua> zerbitzuak = zerbitzuaDAO.lortuZerbitzuGuztiak();
+		
+		for (Zerbitzua zerbitzua : zerbitzuak) {
+			System.out.println("Prezioa Ostatua: " + zerbitzua.getPrezioaOstatua());
+	        System.out.println("Sarrera Eguna: " + zerbitzua.getSarreraEguna());
+	        System.out.println("Irteera Eguna: " + zerbitzua.getIrteeraEguna());
+	        System.out.println("Logela Mota: " + zerbitzua.getLogelaMota());
+	        System.out.println("Ostatua: " + zerbitzua.getOstatua());
+	        System.out.println("Hegaldia: " + zerbitzua.getHegaldia());
+	        System.out.println("Beste Zerbitzuak: " + zerbitzua.getBesteZerbitzuak());
+	        System.out.println("Prezioa Beste Zerbitzuak: " + zerbitzua.getPrezioaBesteZerbitzuak());
+	        System.out.println("Joan Etorri: " + zerbitzua.isJoanEtorri());
+	        System.out.println("Jatorrizko Aireportua: " + zerbitzua.getJatorrizkoAireportua());
+	        System.out.println("Helmugako Aireportua: " + zerbitzua.getHelmugakoAireportua());
+	        System.out.println("Hegaldia Kodea: " + zerbitzua.getHegaldiKodea());
+	        System.out.println("Aero Linea: " + zerbitzua.getAeroLinea());
+	        System.out.println("Prezioa Hegaldia: " + zerbitzua.getPrezioaHegaldia());
+	        System.out.println("Irteera Data: " + zerbitzua.getIrteeraData());
+	        System.out.println("Irteera Ordutegia: " + zerbitzua.getIrteeraOrdutegia());
+	        System.out.println("Bidaiaren Iraupena: " + zerbitzua.getBidaiarenIraupena());
+	        System.out.println("Itzulera Data: " + zerbitzua.getItzuleraData());
+	        System.out.println("Itzulera Ordua: " + zerbitzua.getItzuleraOrdua());
+	        System.out.println("Bidaiaren Iraupena Buelta: " + zerbitzua.getBidaiarenIraupenaBuelta());
+	        System.out.println("Hegaldia Kodea Buelta: " + zerbitzua.getHegaldiKodeaBuelta());
+	        System.out.println("Aero Linea Buelta: " + zerbitzua.getAeroLineaBuelta());
+	        System.out.println("------------------------------------------------------");
+	        
 	
-	List<Zerbitzua> zerbitzuak = zerbitzuaDAO.lortuZerbitzuGuztiak();
-	
-	for (Zerbitzua zerbitzua : zerbitzuak) {
-		System.out.println("Prezioa Ostatua: " + zerbitzua.getPrezioaOstatua());
-        System.out.println("Sarrera Eguna: " + zerbitzua.getSarreraEguna());
-        System.out.println("Irteera Eguna: " + zerbitzua.getIrteeraEguna());
-        System.out.println("Logela Mota: " + zerbitzua.getLogelaMota());
-        System.out.println("Ostatua: " + zerbitzua.getOstatua());
-        System.out.println("Hegaldia: " + zerbitzua.getHegaldia());
-        System.out.println("Beste Zerbitzuak: " + zerbitzua.getBesteZerbitzuak());
-        System.out.println("Prezioa Beste Zerbitzuak: " + zerbitzua.getPrezioaBesteZerbitzuak());
-        System.out.println("Joan Etorri: " + zerbitzua.isJoanEtorri());
-        System.out.println("Jatorrizko Aireportua: " + zerbitzua.getJatorrizkoAireportua());
-        System.out.println("Helmugako Aireportua: " + zerbitzua.getHelmugakoAireportua());
-        System.out.println("Hegaldia Kodea: " + zerbitzua.getHegaldiKodea());
-        System.out.println("Aero Linea: " + zerbitzua.getAeroLinea());
-        System.out.println("Prezioa Hegaldia: " + zerbitzua.getPrezioaHegaldia());
-        System.out.println("Irteera Data: " + zerbitzua.getIrteeraData());
-        System.out.println("Irteera Ordutegia: " + zerbitzua.getIrteeraOrdutegia());
-        System.out.println("Bidaiaren Iraupena: " + zerbitzua.getBidaiarenIraupena());
-        System.out.println("Itzulera Data: " + zerbitzua.getItzuleraData());
-        System.out.println("Itzulera Ordua: " + zerbitzua.getItzuleraOrdua());
-        System.out.println("Bidaiaren Iraupena Buelta: " + zerbitzua.getBidaiarenIraupenaBuelta());
-        System.out.println("Hegaldia Kodea Buelta: " + zerbitzua.getHegaldiKodeaBuelta());
-        System.out.println("Aero Linea Buelta: " + zerbitzua.getAeroLineaBuelta());
-        System.out.println("------------------------------------------------------");
-        
-
-    	}
-	System.out.println("Número de Zerbitzuak obtenidos: " + zerbitzuak.size());
-	if (zerbitzuak.isEmpty()) {
-	    System.out.println("La lista está vacía.");
-	}
+	    	}
+		System.out.println("Número de Zerbitzuak obtenidos: " + zerbitzuak.size());
+		if (zerbitzuak.isEmpty()) {
+		    System.out.println("La lista está vacía.");
+		}
 	}
 }
 	        
