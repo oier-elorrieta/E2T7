@@ -7,45 +7,41 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Konexioa.ConnectDB;
 import modeloa.Bidaia;
 
 public class BidaiaDAO {
-	
+
 	private Connection konexioa;
 
-	// Constructor
-    public BidaiaDAO() {
-        this.konexioa = ConnectDB.conectar();  // Usamos la clase ConnectDB para obtener la conexión
-    }
-	
-    public List<Bidaia> lortuBidaiGuztiak() {
-        List<Bidaia> bidaiak = new ArrayList<>();
-        String sql = "SELECT * FROM Bidaia b join bidaia_mota m using (KodBidaiaMota) join agentzia a using (IDAgentzia)";
+	public void setConnection(Connection konexioa) {
+		this.konexioa = konexioa;
+	}
 
-        try (Statement stmt = konexioa.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                Bidaia bidaia = new Bidaia(sql, sql, sql, sql, sql, sql, sql, sql, null, sql);
-                bidaia.setIdentifikatzailea(rs.getString("IDBidaia"));
-                bidaia.setIzena(rs.getString("izena"));
-                bidaia.setDataAmaiera(rs.getString("dataAmaiera"));
-                bidaia.setDataIrteera(rs.getString("dataIrteera"));
-                bidaia.setDeskribapena(rs.getString("deskribapena"));
-                bidaia.setHelmuga(rs.getString("KodHerrialdea"));
-                bidaia.setZerbitzuak(null);
-                bidaia.setAgentzia(rs.getString("a.izena"));
-                bidaia.setBidaiaMota(rs.getString("m.deskribapena"));
-                bidaiak.add(bidaia);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Para ver el detalle del error
-            System.out.println("Errorea Herrialdeak eskuratzen: " + e.getMessage());
-        }
+	public List<Bidaia> lortuBidaiGuztiak() {
+		List<Bidaia> bidaiak = new ArrayList<>();
+		String sql = "SELECT * FROM Bidaia b JOIN bidaia_mota m ON b.kodBidaiaMota = m.kodBidaiaMota JOIN agentzia a ON b.IDAgentzia = a.IDAgentzia";
 
-        return bidaiak;
-    }
-	
+		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				String identifikatzailea = rs.getString("IDBidaia");
+				String izena = rs.getString("izenaBidaia");
+				String dataAmaiera = rs.getString("dataAmaiera");
+				String dataIrteera = rs.getString("dataIrteera");
+				String deskribapena = rs.getString("deskribapenaBidaia");
+				String helmuga = rs.getString("KodHerrialdea");
+				String agentzia = rs.getString("izenaAgentzia");
+				String bidaiaMota = rs.getString("deskribapenaBidaiMota");
+
+				Bidaia bidaia = new Bidaia(identifikatzailea, izena, dataAmaiera, dataIrteera, deskribapena, helmuga,
+						null, agentzia, null, bidaiaMota);
+				bidaiak.add(bidaia);
+			}
+		} catch (SQLException e) {
+			System.err.println("Errorea bidaiak kontsultatzerakoan: " + e.getMessage());
+		}
+
+		return bidaiak;
+	}
 
 }
 

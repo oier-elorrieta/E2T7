@@ -1,64 +1,100 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Konexioa.ConnectDB;
 import modeloa.*;
-
 
 public class ZerbitzuakDAO {
 
 	private Connection konexioa;
 
-	// Constructor
-    public ZerbitzuakDAO() {
-        this.konexioa = ConnectDB.conectar();  // Usamos la clase ConnectDB para obtener la conexión
-    }
-	
-    public List<Zerbitzua> lortuZerbitzuGuztiak() {
-        List<Zerbitzua> zerbitzuak = new ArrayList<>();
-        String sql = "SELECT * FROM zerbitzua join ostatua o on IDZerbitzua = IDOstatua join hegaldia on IDZerbitzua = IDHegaldia join joanetorri on IDHegaldia = IDJoanEtorri join beste_zerbitzuak on IDZerbitzua = IDBesteZerbitzuak join logela_mota l on o.kodLogelaMota = l.kodLogelaMota";
+	public void setConnection(Connection konexioa) {
+		this.konexioa = konexioa;
+	}
 
-        try (Statement stmt = konexioa.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                Zerbitzua zerbitzua = new Zerbitzua(0, null, null, sql, sql, sql, sql, 0, false, sql, sql, sql, sql, 0, null, sql, sql, null, null, sql, sql, sql);
-                zerbitzua.setPrezioaOstatua(rs.getDouble("prezioa"));
-                zerbitzua.setSarreraEguna(rs.getString("sarreraEguna"));
-                zerbitzua.setIrteeraEguna(rs.getString("irteeraEguna"));
-                zerbitzua.setLogelaMota(rs.getString("kodlogelaMota"));
-                zerbitzua.setOstatua(rs.getString("IDostatua"));
-                zerbitzua.setHegaldia(rs.getString("IDhegaldia"));
-                zerbitzua.setBesteZerbitzuak(rs.getString("IDbesteZerbitzuak"));
-                zerbitzua.setPrezioaBesteZerbitzuak(rs.getDouble("prezioa"));
-                zerbitzua.setJoanEtorri(rs.getBoolean("IDjoanEtorri"));
-                zerbitzua.setJatorrizkoAireportua(rs.getString("KodAireIrteera"));
-                zerbitzua.setHelmugakoAireportua(rs.getString("KodAireHelmuga"));
-                zerbitzua.setHegaldiKodea(rs.getString("hegaldiKodea"));
-                zerbitzua.setAeroLinea(rs.getString("KodaireLinea"));
-                zerbitzua.setPrezioaHegaldia(rs.getDouble("prezioa"));
-                zerbitzua.setIrteeraData(rs.getString("irteeraData"));
-                zerbitzua.setIrteeraOrdutegia(rs.getString("irteeraOrdutegia"));
-                zerbitzua.setBidaiarenIraupena(rs.getString("bidaiaIraupen"));
-                zerbitzua.setItzuleraData(rs.getString("itzuleraData"));
-                zerbitzua.setItzuleraOrdua(rs.getString("itzuleraOrdua"));
-                zerbitzua.setBidaiarenIraupenaBuelta(rs.getString("bueltakoIraupena"));
-                zerbitzua.setHegaldiKodeaBuelta(rs.getString("hegaldiKodeaBuelta"));
-                zerbitzua.setAeroLineaBuelta(rs.getString("kodAirelinea"));
-                zerbitzuak.add(zerbitzua);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Para ver el detalle del error
-            System.out.println("Errorea Zerbitzuak eskuratzen: " + e.getMessage());
-        }
+	public List<Zerbitzua> lortuZerbitzuGuztiak() {
+		List<Zerbitzua> zerbitzuak = new ArrayList<>();
+		String sql = "SELECT * FROM bidaia b JOIN ostatua o ON b.IDBidaia = o.IDOstatua JOIN hegaldia h ON b.IDBidaia = h.IDHegaldia JOIN joanetorri j ON h.IDHegaldia = j.IDJoanEtorri JOIN beste_zerbitzuak bz ON b.IDBidaia = bz.IDBesteZerbitzuak";
 
-        return zerbitzuak;
-    }
-	
+		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				String prezioaOstatua = rs.getString("prezioOstatua");
+				String sarreraEguna = rs.getString("sarreraEguna");
+				String irteeraEguna = rs.getString("irteeraEguna");
+				String logelaMota = rs.getString("kodLogelaMota");
+				String ostatua = rs.getString("izenaOstatua");
+				String hegaldia = rs.getString("IDHegaldia");
+				String besteZerbitzuak = rs.getString("izenaBesteZerbitzuak");
+				String prezioaBesteZerbitzuak = rs.getString("prezioBesteZerbitzua");
+				String joanEtorri = rs.getString("IDJoanEtorri");
+				String jatorrizkoAireportua = rs.getString("KodAireIrteera");
+				String helmugakoAireportua = rs.getString("KodAireHelmuga");
+				String hegaldiKodea = rs.getString("HegaldiKodea");
+				String aeroLinea = rs.getString("KodAirelinea");
+				String prezioaHegaldia = rs.getString("prezioaHegaldia");
+				String irteeraData = rs.getString("IrteeraData");
+				String irteeraOrdutegia = rs.getString("IrteeraOrdutegia");
+				String bidaiarenIraupena = rs.getString("BidaiaIraupen");
+				String itzuleraData = rs.getString("ItzuleraData");
+				String itzuleraOrdua = rs.getString("ItzuleraOrdua");
+				String bidaiarenIraupenaBuelta = rs.getString("BueltakoIraupena");
+				String hegaldiKodeaBuelta = rs.getString("HegaldiKodeaBuelta");
+				String aeroLineaBuelta = rs.getString("KodAirelinea");
+
+				Zerbitzua zerbitzua = new Zerbitzua(prezioaOstatua, sarreraEguna, irteeraEguna, logelaMota, ostatua,
+						hegaldia, besteZerbitzuak, prezioaBesteZerbitzuak, joanEtorri, jatorrizkoAireportua,
+						helmugakoAireportua, hegaldiKodea, aeroLinea, prezioaHegaldia, irteeraData, irteeraOrdutegia,
+						bidaiarenIraupena, itzuleraData, itzuleraOrdua, bidaiarenIraupenaBuelta, hegaldiKodeaBuelta,
+						aeroLineaBuelta);
+
+				zerbitzuak.add(zerbitzua);
+			}
+		} catch (SQLException e) {
+			System.err.println("Errorea zerbitzuak kontsultatzerakoan: " + e.getMessage());
+		}
+
+		return zerbitzuak;
+	}
+
+	public void gordeZerbitzua(Zerbitzua zerbitzua) {
+		String sql = "INSERT INTO zerbitzua (IDBidaia, prezioa, sarreraEguna, irteeraEguna, kodLogelaMota, IDostatua, IDhegaldia, IDbesteZerbitzuak, prezioa, IDjoanEtorri, KodAireIrteera, KodAireHelmuga, hegaldiKodea, KodaireLinea, prezioaHegaldia, irteeraData, irteeraOrdutegia, bidaiaIraupen, itzuleraData, itzuleraOrdua, bueltakoIraupena, hegaldiKodeaBuelta, kodAirelinea) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		try (PreparedStatement stmt = konexioa.prepareStatement(sql)) {
+			stmt.setDouble(1, zerbitzua.getPrezioaOstatua());
+			stmt.setString(2, zerbitzua.getSarreraEguna());
+			stmt.setString(3, zerbitzua.getIrteeraEguna());
+			stmt.setString(4, zerbitzua.getLogelaMota());
+			stmt.setString(5, zerbitzua.getOstatua());
+			stmt.setString(6, zerbitzua.getHegaldia());
+			stmt.setString(7, zerbitzua.getBesteZerbitzuak());
+			stmt.setDouble(8, zerbitzua.getPrezioaBesteZerbitzuak());
+			stmt.setBoolean(9, zerbitzua.isJoanEtorri());
+			stmt.setString(10, zerbitzua.getJatorrizkoAireportua());
+			stmt.setString(11, zerbitzua.getHelmugakoAireportua());
+			stmt.setString(12, zerbitzua.getHegaldiKodea());
+			stmt.setString(13, zerbitzua.getAeroLinea());
+			stmt.setDouble(14, zerbitzua.getPrezioaHegaldia());
+			stmt.setString(15, zerbitzua.getIrteeraData());
+			stmt.setString(16, zerbitzua.getIrteeraOrdutegia());
+			stmt.setString(17, zerbitzua.getBidaiarenIraupena());
+			stmt.setString(18, zerbitzua.getItzuleraData());
+			stmt.setString(19, zerbitzua.getItzuleraOrdua());
+			stmt.setString(20, zerbitzua.getBidaiarenIraupenaBuelta());
+			stmt.setString(21, zerbitzua.getHegaldiKodeaBuelta());
+			stmt.setString(22, zerbitzua.getAeroLineaBuelta());
+
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Errorea Zerbitzua gordetzen: " + e.getMessage());
+		}
+	}
 
 }

@@ -2,6 +2,7 @@ package modeloa;
 
 public class Zerbitzua {
 
+	private int IDZerbitzua;
 	private double prezioaOstatua;
 	private String sarreraEguna;
 	private String irteeraEguna;
@@ -25,8 +26,9 @@ public class Zerbitzua {
 	private String hegaldiKodeaBuelta;
 	private String aeroLineaBuelta;
 	
-	public Zerbitzua(double prezioaOstatua, String sarreraEguna, String irteeraEguna, String logelaMota, String ostatua, String hegaldia, String besteZerbitzuak, double prezioaBesteZerbitzuak, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, String itzuleraData, String itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+	public Zerbitzua(String sql, double prezioaOstatua, String sarreraEguna, String irteeraEguna, String logelaMota, String ostatua, String hegaldia, String besteZerbitzuak, double prezioaBesteZerbitzuak, boolean joanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, String bidaiarenIraupena, String itzuleraData, String itzuleraOrdua, String bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
 		
+
 		this.prezioaOstatua = prezioaOstatua;
 		this.sarreraEguna = sarreraEguna;
 		this.irteeraEguna = irteeraEguna;
@@ -119,6 +121,22 @@ public class Zerbitzua {
 		this.aeroLineaBuelta = aeroLineaBuelta;
 	}
 
+
+	
+	
+	public Zerbitzua(String prezioaOstatua2, String sarreraEguna2, String irteeraEguna2, String logelaMota2,
+			String ostatua2, String hegaldia2, String besteZerbitzuak2, String prezioaBesteZerbitzuak2,
+			String joanEtorri2, String jatorrizkoAireportua2, String helmugakoAireportua2, String hegaldiKodea2,
+			String aeroLinea2, String prezioaHegaldia2, String irteeraData2, String irteeraOrdutegia2,
+			String bidaiarenIraupena2, String itzuleraData2, String itzuleraOrdua2, String bidaiarenIraupenaBuelta2,
+			String hegaldiKodeaBuelta2, String aeroLineaBuelta2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public int getIDZerbitzua() {
+		return IDZerbitzua;
+	}
 
 	public double getPrezioaOstatua() {
 		return prezioaOstatua;

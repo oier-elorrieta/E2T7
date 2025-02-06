@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Agentzia {
 
-	private String identifikatzailea;
+	private int identifikatzailea;
 	private String izena;
 	private String logoa;
 	private String markaKolorea;
@@ -15,8 +15,8 @@ public class Agentzia {
 	@SuppressWarnings("unused")
 	private ArrayList <Bidaia> Bidaiak;
 
-	public Agentzia(String identifikatzailea, String izena, String logoa, String markaKolorea, String langileKopurua, String agentziaMota, String pasahitza, String erabiltzaile, ArrayList<Bidaia> Bidaiak) {
-		this.identifikatzailea = identifikatzailea;
+	public Agentzia(int idAgentzia, String izena, String logoa, String markaKolorea, String langileKopurua, String agentziaMota, String pasahitza, String erabiltzaile, ArrayList<Bidaia> Bidaiak) {
+		this.identifikatzailea = idAgentzia;
 		this.izena = izena;
 		this.logoa = logoa;
 		this.markaKolorea = markaKolorea;
@@ -27,11 +27,11 @@ public class Agentzia {
 		this.Bidaiak = new ArrayList<Bidaia>();
 	}
 
-	public String getIdentifikatzailea() {
+	public int getIdentifikatzailea() {
 		return identifikatzailea;
 	}
 
-	public void setIdentifikatzailea(String identifikatzailea) {
+	public void setIdentifikatzailea(int identifikatzailea) {
 		this.identifikatzailea = identifikatzailea;
 	}
 

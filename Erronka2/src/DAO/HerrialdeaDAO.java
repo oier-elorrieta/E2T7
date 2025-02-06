@@ -4,37 +4,45 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import Konexioa.ConnectDB;
 import modeloa.*;
 
 public class HerrialdeaDAO {
-	
+
 	private Connection konexioa;
-	
-	 // Constructor
-    public HerrialdeaDAO() {
-        this.konexioa = ConnectDB.conectar();  // Usamos la clase ConnectDB para obtener la conexión
-    }
-	
-    public List<Herrialdea> lortuHerrialdeGuztiak() {
-        List<Herrialdea> herrialdeak = new ArrayList<>();
-        String sql = "SELECT * FROM Herrialdea";
 
-        try (Statement stmt = konexioa.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                Herrialdea herrialdea = new Herrialdea(sql, sql);
-                herrialdea.setKodea(rs.getString("kodHerrialdea"));
-                herrialdea.setHerrialdea(rs.getString("deskribapena"));
-                herrialdeak.add(herrialdea);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Para ver el detalle del error
-            System.out.println("Errorea Herrialdeak eskuratzen: " + e.getMessage());
-        }
+	public void setConnection(Connection konexioa) {
+		this.konexioa = konexioa;
+	}
 
-        return herrialdeak;
-    }
-	
+	public List<Herrialdea> lortuHerrialdeGuztiak() {
+		List<Herrialdea> herrialdeak = new ArrayList<>();
+		String sql = "SELECT kodHerrialdea, deskribapena FROM Herrialdea";
+
+		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				String kodea = rs.getString("kodHerrialdea");
+				String deskribapena = rs.getString("deskribapena");
+				Herrialdea herrialdea = new Herrialdea(kodea, deskribapena);
+				herrialdeak.add(herrialdea);
+			}
+		} catch (SQLException e) {
+			System.err.println("Errorea herrialdeak kontsultatzerakoan: " + e.getMessage());
+		}
+		return herrialdeak;
+	}
+
+	public void gordeHerrialdea(Herrialdea herrialdea) {
+		String sql = "INSERT INTO Herrialdea (kodHerrialdea, deskribapena) VALUES (?, ?)";
+
+		try (PreparedStatement stmt = konexioa.prepareStatement(sql)) {
+			stmt.setString(1, herrialdea.getKodea());
+			stmt.setString(2, herrialdea.getHerrialdea());
+
+			stmt.executeUpdate();
+			System.out.println("Herrialdea insertatu da!");
+		} catch (SQLException e) {
+			System.err.println("Errorea herrialdea gordetzean: " + e.getMessage());
+		}
+	}
 
 }

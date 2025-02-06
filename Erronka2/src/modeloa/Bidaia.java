@@ -26,6 +26,7 @@ public class Bidaia {
 		this.iraupena = iraupena;
 		this.helmuga = helmuga;
 		this.Zerbitzuak = new ArrayList<Zerbitzua>();
+		this.agentzia = agentzia;
 	}
 
 	  
