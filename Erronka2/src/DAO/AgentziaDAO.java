@@ -12,10 +12,10 @@ import modeloa.Agentzia;
 
 public class AgentziaDAO {
 
-	private Connection konexioa;
+	private static Connection konexioa;
 
 	public void setConnection(Connection konexioa) {
-		this.konexioa = konexioa;
+		AgentziaDAO.konexioa = konexioa;
 	}
 	
 	
@@ -42,28 +42,83 @@ public class AgentziaDAO {
 
 	    return agentziak;
 	}
+	
+	public static String lortuErabiltzailea(String erabiltzailea) {
+		
+		String sql = "SELECT Erabiltzaile FROM agentzia WHERE Erabiltzaile = ?";
+		
+        // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
+        try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
+            // Establecemos el valor del parámetro en el PreparedStatement
+            ps.setString(1, erabiltzailea);
 
-	public boolean sartuLogin(String erabiltzaile, String pasahitza) {
-	    String sql = "SELECT Erabiltzaile, Pasahitza FROM agentzia WHERE Erabiltzaile = ? AND Pasahitza = ?";
-	    
-	    System.out.println("Usuario: " + erabiltzaile);
-	    System.out.println("Contraseña: " + pasahitza);
+            // Ejecutamos la consulta
+            ResultSet rs = ps.executeQuery();
 
-	    
-	    try (Statement stmt = konexioa.createStatement(); PreparedStatement ps = konexioa.prepareStatement(sql)) {
-	        ps.setString(1, erabiltzaile);  // Usamos el usuario que se pasa como parámetro
-	        ps.setString(2, pasahitza);     // Usamos la contraseña que se pasa como parámetro
-	        
-	        ResultSet rs = ps.executeQuery();
-	        
-	        // Si encontramos algún resultado, significa que el login es válido
-	        return rs.next();
-	        
-	    } catch (SQLException e) {
-	        System.err.println("Error al validar el login: " + e.getMessage());
-	        return false;
-	    }
-	}
+            // Si encontramos el Erabiltzaile, devolvemos el valor
+            if (rs.next()) {
+                return rs.getString("Erabiltzaile"); // Retorna el valor de la columna Erabiltzaile
+            } else {
+                return null; // Si no lo encuentra, devolvemos null
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al consultar la base de datos: " + e.getMessage());
+            return null; // Si ocurre algún error, retornamos null
+        }
+    }
+	
+public static String lortuPasahitza(String erabiltzailea) {
+		
+		String sql = "SELECT Erabiltzaile, Pasahitza FROM agentzia WHERE Erabiltzaile = ?";
+		
+        // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
+        try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
+            // Establecemos el valor del parámetro en el PreparedStatement
+            ps.setString(1, erabiltzailea);
+
+            // Ejecutamos la consulta
+            ResultSet rs = ps.executeQuery();
+
+            // Si encontramos el Erabiltzaile, devolvemos el valor
+            if (rs.next()) {
+                return rs.getString("Pasahitza"); // Retorna el valor de la columna Erabiltzaile
+            } else {
+                return null; // Si no lo encuentra, devolvemos null
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al consultar la base de datos: " + e.getMessage());
+            return null; // Si ocurre algún error, retornamos null
+        }
+    }
+
+public static int lortuID(String erabiltzailea) {
+	
+	String sql = "SELECT IDAgentzia FROM agentzia WHERE Erabiltzaile = ?";
+	
+    // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
+    try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
+        // Establecemos el valor del parámetro en el PreparedStatement
+        ps.setString(1, erabiltzailea);
+
+        // Ejecutamos la consulta
+        ResultSet rs = ps.executeQuery();
+
+        // Si encontramos el Erabiltzaile, devolvemos el valor
+        if (rs.next()) {
+            return rs.getInt("IDAgentzia"); // Retorna el valor de la columna Erabiltzaile
+        } else {
+            return -1; // Si no lo encuentra, devolvemos null
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Error al consultar la base de datos: " + e.getMessage());
+        return -1; // Si ocurre algún error, retornamos null
+    }
+}
+
+
 
 /*
 	public List<Agentzia> lortuAgentziaGuztiak() {

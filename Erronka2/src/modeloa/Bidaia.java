@@ -10,12 +10,12 @@ public class Bidaia {
 	private String bidaiaMota;
 	private String dataIrteera;
 	private String dataAmaiera;
-	private String iraupena;
+	private int iraupena;
 	private String helmuga;
 	private String agentzia;
 	private ArrayList <Zerbitzua> Zerbitzuak;	
 
-	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera, String iraupena, String helmuga, Zerbitzua Zerbitzuak, String agentzia) {
+	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera, int iraupena, String helmuga, Zerbitzua Zerbitzuak, String agentzia) {
 		
 		this.identifikatzailea = identifikatzailea;
 		this.izena = izena;
@@ -88,11 +88,11 @@ public class Bidaia {
 		this.dataAmaiera = dataAmaiera;
 	}
 
-	public String getIraupena() {
+	public int getIraupena() {
 		return iraupena;
 	}
 
-	public void setIraupena(String iraupena) {
+	public void setIraupena(int iraupena) {
 		this.iraupena = iraupena;
 	}
 

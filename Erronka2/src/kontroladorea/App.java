@@ -20,7 +20,6 @@ public class App extends JFrame {
 
 		ConnectDB konexioa = new ConnectDB(); 
 		BidaiaDAO proba = new BidaiaDAO();
-		
 		konexioa.conectar();
 		
 		if (konexioa.isConnected()) {
@@ -45,6 +44,8 @@ public class App extends JFrame {
 
 	    ZerbitzuakDAO zerbitzuaDAO = new ZerbitzuakDAO();
 	    zerbitzuaDAO.setConnection(konexioa.getConnection());
+	    
+
 		
 		proba.setConnection(konexioa.getConnection());
 		
@@ -52,8 +53,8 @@ public class App extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ongietorri frame = new Ongietorri();
-					frame.setVisible(true);
+					Ongietorri ongietorri = new Ongietorri();
+					ongietorri.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -86,7 +87,7 @@ public class App extends JFrame {
             System.out.println("Kodea: " + herrialdea.getKodea());
             System.out.println("Herrialdea: " + herrialdea.getHerrialdea());
             System.out.println("-------------");
-        }*/
+        }
         
 
 		
@@ -97,7 +98,7 @@ public class App extends JFrame {
 	        return;  // Termina la ejecución si no se pudo conectar
 	    }
         
-List<Aireportua> aireportuak = aireportuaDAO.lortuAireportuGuztiak();
+		List<Aireportua> aireportuak = aireportuaDAO.lortuAireportuGuztiak();
         
         for (Aireportua aireportua : aireportuak) {
             System.out.println("Aireportu Kodea: " + aireportua.getIdentifikatzailea());
