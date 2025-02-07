@@ -43,7 +43,7 @@ public class Erregistratu extends JFrame {
 	 * Create the frame.
 	 */
 	public Erregistratu() {
-		setTitle("Erregistroa");
+		setTitle("Agentzia Erregistratu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 562);
 		contentPane = new JPanel();
@@ -112,7 +112,7 @@ public class Erregistratu extends JFrame {
 		
 		pasahitzaField = new JPasswordField();
 		pasahitzaLabel.setLabelFor(pasahitzaField);
-		pasahitzaField.setBounds(206, 139, 324, 19);
+		pasahitzaField.setBounds(203, 139, 327, 19);
 		contentPane.add(pasahitzaField);
 		
 		erabiltzaileField = new JTextField();
