@@ -1,6 +1,7 @@
 package modeloa;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bidaia {
 
@@ -12,10 +13,11 @@ public class Bidaia {
 	private String dataAmaiera;
 	private int iraupena;
 	private String helmuga;
-	private String agentzia;
+	private int agentzia;
+	private String agentziaIzena;
 	private ArrayList <Zerbitzua> Zerbitzuak;	
 
-	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera, int iraupena, String helmuga, Zerbitzua Zerbitzuak, String agentzia) {
+	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera, int iraupena, String helmuga, List<Zerbitzua> zerbitzuak2, String agentziaIzena) {
 		
 		this.identifikatzailea = identifikatzailea;
 		this.izena = izena;
@@ -26,10 +28,26 @@ public class Bidaia {
 		this.iraupena = iraupena;
 		this.helmuga = helmuga;
 		this.Zerbitzuak = new ArrayList<Zerbitzua>();
+		this.agentziaIzena = agentziaIzena;
+	}
+
+	
+	  
+	public Bidaia(String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera,
+			int iraupena, String helmuga, int agentzia) {
+		
+		this.izena = izena;
+		this.deskribapena = deskribapena;
+		this.bidaiaMota = bidaiaMota;
+		this.dataIrteera = dataIrteera;
+		this.dataAmaiera = dataAmaiera;
+		this.iraupena = iraupena;
+		this.helmuga = helmuga;
 		this.agentzia = agentzia;
 	}
 
-	  
+
+
 	public String getIdentifikatzailea() {
 		return identifikatzailea;
 	}
@@ -38,15 +56,13 @@ public class Bidaia {
 		this.identifikatzailea = identifikatzailea;
 	}
 
-	public String getAgentzia() {
+	public int getAgentzia() {
 		return agentzia;
 	}
 
-
-	public void setAgentzia(String agentzia) {
+	public void setAgentzia(int agentzia) {
 		this.agentzia = agentzia;
 	}
-
 
 	public String getIzena() {
 		return izena;
@@ -112,6 +128,7 @@ public class Bidaia {
 		this.Zerbitzuak = Zerbitzuak;
 	}
 
+	
 
 	@Override
 	public String toString() {

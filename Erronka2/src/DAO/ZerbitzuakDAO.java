@@ -1,57 +1,55 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import modeloa.*;
 
 public class ZerbitzuakDAO {
 
-	private Connection konexioa;
+	private static Connection konexioa;
 
 	public void setConnection(Connection konexioa) {
-		this.konexioa = konexioa;
+		ZerbitzuakDAO.konexioa = konexioa;
 	}
 
-	public List<Zerbitzua> lortuZerbitzuGuztiak() {
-		List<Zerbitzua> zerbitzuak = new ArrayList<>();
-		String sql = "SELECT * FROM bidaia b JOIN ostatua o ON b.IDBidaia = o.IDOstatua JOIN hegaldia h ON b.IDBidaia = h.IDHegaldia JOIN joanetorri j ON h.IDHegaldia = j.IDJoanEtorri JOIN beste_zerbitzuak bz ON b.IDBidaia = bz.IDBesteZerbitzuak";
+	public static ArrayList<Zerbitzua> lortuZerbitzuBidaia(int IDBidaia) {
+		ArrayList<Zerbitzua> zerbitzuak = new ArrayList<>();
+		String sql = "SELECT b.IDBidaia, b.izenaBidaia, b.deskribapenaBidaia, h.IDHegaldia, h.HegaldiKodea, h.BidaiaIraupen, h.prezioaHegaldia, h.IrteeraData, h.IrteeraOrdutegia, j.IDJoanEtorri, j.ItzuleraOrdua, j.ItzuleraData, j.BueltakoIraupena, j.HegaldiKodeaBuelta, o.IDostatua, o.izenaOstatua, o.hiria, o.prezioOstatua, o.sarreraEguna, o.irteeraEguna, o.kodLogelaMota, h.kodAireIrteera, h.kodAireHelmuga, h.kodAirelinea, j.kodAireIrteera, j.kodAireHelmuga, j.kodAirelinea, bz.IDBesteZerbitzuak, bz.izenaBesteZerbitzuak, bz.data, bz.deskribapenaBesteZerbitzuak, bz.prezioBesteZerbitzua FROM bidaia b LEFT JOIN hegaldia h ON b.IDBidaia = h.bidaiaHe LEFT JOIN joanetorri j ON h.IDHegaldia = j.IDJoanEtorri LEFT JOIN ostatua o ON b.IDBidaia = o.bidaiaOs LEFT JOIN beste_zerbitzuak bz ON b.IDBidaia = bz.bidaiaBe "
+				+ "WHERE b.IDBidaia =" + IDBidaia +";";
 
 		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 			while (rs.next()) {
-				String prezioaOstatua = rs.getString("prezioOstatua");
+				double prezioaOstatua = rs.getInt("prezioOstatua");
 				String sarreraEguna = rs.getString("sarreraEguna");
 				String irteeraEguna = rs.getString("irteeraEguna");
 				String logelaMota = rs.getString("kodLogelaMota");
 				String ostatua = rs.getString("izenaOstatua");
-				String hegaldia = rs.getString("IDHegaldia");
+				int hegaldia = rs.getInt("IDHegaldia");
 				String besteZerbitzuak = rs.getString("izenaBesteZerbitzuak");
-				String prezioaBesteZerbitzuak = rs.getString("prezioBesteZerbitzua");
-				String joanEtorri = rs.getString("IDJoanEtorri");
-				String jatorrizkoAireportua = rs.getString("KodAireIrteera");
-				String helmugakoAireportua = rs.getString("KodAireHelmuga");
+				double prezioaBesteZerbitzuak = rs.getInt("prezioBesteZerbitzua");
+				int joanEtorri = rs.getInt("IDJoanEtorri");
+				String jatorrizkoAireportua = rs.getString("h.KodAireIrteera");
+				String helmugakoAireportua = rs.getString("h.KodAireHelmuga");
 				String hegaldiKodea = rs.getString("HegaldiKodea");
-				String aeroLinea = rs.getString("KodAirelinea");
-				String prezioaHegaldia = rs.getString("prezioaHegaldia");
+				String aeroLinea = rs.getString("h.KodAirelinea");
+				double prezioaHegaldia = rs.getInt("prezioaHegaldia");
 				String irteeraData = rs.getString("IrteeraData");
 				String irteeraOrdutegia = rs.getString("IrteeraOrdutegia");
-				String bidaiarenIraupena = rs.getString("BidaiaIraupen");
+				int bidaiarenIraupena = rs.getInt("BidaiaIraupen");
 				String itzuleraData = rs.getString("ItzuleraData");
 				String itzuleraOrdua = rs.getString("ItzuleraOrdua");
-				String bidaiarenIraupenaBuelta = rs.getString("BueltakoIraupena");
+				int bidaiarenIraupenaBuelta = rs.getInt("BueltakoIraupena");
 				String hegaldiKodeaBuelta = rs.getString("HegaldiKodeaBuelta");
-				String aeroLineaBuelta = rs.getString("KodAirelinea");
+				String aeroLineaBuelta = rs.getString("j.KodAirelinea");
 
 				Zerbitzua zerbitzua = new Zerbitzua(prezioaOstatua, sarreraEguna, irteeraEguna, logelaMota, ostatua,
 						hegaldia, besteZerbitzuak, prezioaBesteZerbitzuak, joanEtorri, jatorrizkoAireportua,
 						helmugakoAireportua, hegaldiKodea, aeroLinea, prezioaHegaldia, irteeraData, irteeraOrdutegia,
 						bidaiarenIraupena, itzuleraData, itzuleraOrdua, bidaiarenIraupenaBuelta, hegaldiKodeaBuelta,
-						aeroLineaBuelta);
+						aeroLineaBuelta, aeroLineaBuelta);
 
 				zerbitzuak.add(zerbitzua);
 			}
@@ -62,7 +60,7 @@ public class ZerbitzuakDAO {
 		return zerbitzuak;
 	}
 
-	public void gordeZerbitzua(Zerbitzua zerbitzua) {
+	/*public void gordeZerbitzua(Zerbitzua zerbitzua) {
 		String sql = "INSERT INTO zerbitzua (IDBidaia, prezioa, sarreraEguna, irteeraEguna, kodLogelaMota, IDostatua, IDhegaldia, IDbesteZerbitzuak, prezioa, IDjoanEtorri, KodAireIrteera, KodAireHelmuga, hegaldiKodea, KodaireLinea, prezioaHegaldia, irteeraData, irteeraOrdutegia, bidaiaIraupen, itzuleraData, itzuleraOrdua, bueltakoIraupena, hegaldiKodeaBuelta, kodAirelinea) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -95,6 +93,6 @@ public class ZerbitzuakDAO {
 			e.printStackTrace();
 			System.out.println("Errorea Zerbitzua gordetzen: " + e.getMessage());
 		}
-	}
+	}*/
 
 }

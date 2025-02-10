@@ -2,20 +2,21 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
+import Konexioa.ConnectDB;
 import modeloa.*;
 
 public class HerrialdeaDAO {
 
-	private Connection konexioa;
+	private static Connection konexioa;
+	ConnectDB conexion = new ConnectDB();
 
 	public void setConnection(Connection konexioa) {
-		this.konexioa = konexioa;
+		HerrialdeaDAO.konexioa = konexioa;
 	}
 
-	public List<Herrialdea> lortuHerrialdeGuztiak() {
-		List<Herrialdea> herrialdeak = new ArrayList<>();
+	public ArrayList<Herrialdea> lortuHerrialdeGuztiak() {
+		ArrayList<Herrialdea> herrialdeak = new ArrayList<>();
 		String sql = "SELECT kodHerrialdea, deskribapena FROM Herrialdea";
 
 		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
@@ -44,5 +45,23 @@ public class HerrialdeaDAO {
 			System.err.println("Errorea herrialdea gordetzean: " + e.getMessage());
 		}
 	}
+	
+	public String lortuID(String herrialdea) {
+		String sql = "SELECT kodHerrialdea, deskribapena FROM Herrialdea";
+		String herrialdeKodea = "";
+		
+		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				if (herrialdea.equals(rs.getString("deskribapena"))) {
+					herrialdeKodea =rs.getString("kodHerrialdea");
+				} 
+			}
+			} catch (SQLException z) {
+				System.err.println("Errorea herrialdea berreskuratzen: " + z.getMessage());
+			}
+		
+		return herrialdeKodea;
+		}
+	}
 
-}
+

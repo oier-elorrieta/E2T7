@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import modeloa.Agentzia;
 
 public class AgentziaDAO {
+	
+	
 
 	private static Connection konexioa;
 
@@ -19,10 +19,10 @@ public class AgentziaDAO {
 	}
 	
 	
-	public List<Agentzia> lortuAgentziaGuztiak() {
-		List<Agentzia> agentziak = new ArrayList<>();
+	public ArrayList<Agentzia> lortuAgentziaGuztiak() {
+		ArrayList<Agentzia> agentziak = new ArrayList<>();
 	    String kontsulta = "SELECT IDAgentzia, izenaAgentzia, logoa, kolorea, Erabiltzaile, Pasahitza, kodAgMota, kodLangKop FROM agentzia";
-	    try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(kontsulta)) {
+	    try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(kontsulta)){
 	        while (rs.next()) {
 	            // Crear el objeto Agentzia y añadirlo a la lista
 	            int idAgentzia = rs.getInt("IDAgentzia");
@@ -68,104 +68,82 @@ public class AgentziaDAO {
         }
     }
 	
-public static String lortuPasahitza(String erabiltzailea) {
+		public static String lortuPasahitza(String erabiltzailea) {
+				
+				String sql = "SELECT Erabiltzaile, Pasahitza FROM agentzia WHERE Erabiltzaile = ?";
+				
+		        // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
+		        try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
+		            // Establecemos el valor del parámetro en el PreparedStatement
+		            ps.setString(1, erabiltzailea);
 		
-		String sql = "SELECT Erabiltzaile, Pasahitza FROM agentzia WHERE Erabiltzaile = ?";
+		            // Ejecutamos la consulta
+		            ResultSet rs = ps.executeQuery();
 		
-        // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
-        try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
-            // Establecemos el valor del parámetro en el PreparedStatement
-            ps.setString(1, erabiltzailea);
+		            // Si encontramos el Erabiltzaile, devolvemos el valor
+		            if (rs.next()) {
+		                return rs.getString("Pasahitza"); // Retorna el valor de la columna Erabiltzaile
+		            } else {
+		                return null; // Si no lo encuentra, devolvemos null
+		            }
+		
+		        } catch (SQLException e) {
+		            System.err.println("Error al consultar la base de datos: " + e.getMessage());
+		            return null; // Si ocurre algún error, retornamos null
+		        }
+		    }
 
-            // Ejecutamos la consulta
-            ResultSet rs = ps.executeQuery();
-
-            // Si encontramos el Erabiltzaile, devolvemos el valor
-            if (rs.next()) {
-                return rs.getString("Pasahitza"); // Retorna el valor de la columna Erabiltzaile
-            } else {
-                return null; // Si no lo encuentra, devolvemos null
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error al consultar la base de datos: " + e.getMessage());
-            return null; // Si ocurre algún error, retornamos null
-        }
-    }
-
-public static int lortuID(String erabiltzailea) {
-	
-	String sql = "SELECT IDAgentzia FROM agentzia WHERE Erabiltzaile = ?";
-	
-    // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
-    try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
-        // Establecemos el valor del parámetro en el PreparedStatement
-        ps.setString(1, erabiltzailea);
-
-        // Ejecutamos la consulta
-        ResultSet rs = ps.executeQuery();
-
-        // Si encontramos el Erabiltzaile, devolvemos el valor
-        if (rs.next()) {
-            return rs.getInt("IDAgentzia"); // Retorna el valor de la columna Erabiltzaile
-        } else {
-            return -1; // Si no lo encuentra, devolvemos null
-        }
-
-    } catch (SQLException e) {
-        System.err.println("Error al consultar la base de datos: " + e.getMessage());
-        return -1; // Si ocurre algún error, retornamos null
-    }
-}
-
-
-
-/*
-	public List<Agentzia> lortuAgentziaGuztiak() {
-		List<Agentzia> agentziak = new ArrayList<>();
-		String sql = "SELECT * FROM Agentzia";
-
-		try (Statement stmt = konexioa.createStatement()) {
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Agentzia agentzia = new Agentzia(sql, sql, sql, sql, sql, sql, sql, sql, null);
-				agentzia.setIdentifikatzailea(rs.getString("IDAgentzia"));
-				agentzia.setIzena(rs.getString("izenaAgentzia"));
-				agentzia.setLogoa(rs.getString("logoa"));
-				agentzia.setMarkaKolorea(rs.getString("kolorea"));
-				agentzia.setErabiltzaile(rs.getString("erabiltzaile"));
-				agentzia.setAgentziaMota(rs.getString("KodAgMota"));
-				agentzia.setLangileKopurua(rs.getString("KodLangKop"));
-				agentziak.add(agentzia);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace(); // Para ver el detalle del error
-			System.out.println("Errorea Herrialdeak eskuratzen: " + e.getMessage());
+		public static int lortuID(String erabiltzailea) {
+			
+			String sql = "SELECT IDAgentzia FROM agentzia WHERE Erabiltzaile = ?";
+			
+		    // Usamos try-with-resources para asegurarnos de que los recursos se cierren correctamente
+		    try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
+		        // Establecemos el valor del parámetro en el PreparedStatement
+		        ps.setString(1, erabiltzailea);
+		
+		        // Ejecutamos la consulta
+		        ResultSet rs = ps.executeQuery();
+		
+		        // Si encontramos el Erabiltzaile, devolvemos el valor
+		        if (rs.next()) {
+		            return rs.getInt("IDAgentzia"); // Retorna el valor de la columna Erabiltzaile
+		        } else {
+		            return -1; // Si no lo encuentra, devolvemos null
+		        }
+		
+		    } catch (SQLException e) {
+		        System.err.println("Error al consultar la base de datos: " + e.getMessage());
+		        return -1; // Si ocurre algún error, retornamos null
+		    }
 		}
 
-		return agentziak;
-	}
-	*/
+		public boolean sartuAgentzia(Agentzia agentzia) {
+			String sql = "INSERT INTO Agentzia (izenaAgentzia, logoa, kolorea, Pasahitza, Erabiltzaile, kodAgMota, kodLangKop) "
+					 + "VALUES ('" + agentzia.getIzena() + "', '" 
+		               + agentzia.getLogoa() + "', '" 
+		               + agentzia.getMarkaKolorea() + "', '"
+		    	       + agentzia.getPasahitza() + "', '"
+		               + agentzia.getErabiltzaile() + "', '"
+				       + agentzia.getAgentziaMota() + "', '"	
+				       + agentzia.getLangileKopurua() + "');";
+	
+			try (Statement stmt = konexioa.createStatement()) {
+		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
+	
+		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+		        return false;
+		    } catch (Exception w) {
+		    	System.out.println(w.getMessage());
+				return false;
+		    }
+			
 
-	public boolean sartuAgentzia(Agentzia agentzia) {
-		String sql = "INSERT INTO Agentzia (izenaAgentzia, logoa, kolorea, KodLangKop, KodAgMota, erabiltzaile, pasahitza) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-		try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
-			ps.setString(2, agentzia.getIzena());
-			ps.setString(3, agentzia.getLogoa());
-			ps.setString(4, agentzia.getMarkaKolorea());
-			ps.setString(5, agentzia.getLangileKopurua());
-			ps.setString(6, agentzia.getAgentziaMota());
-			ps.setString(7, agentzia.getErabiltzaile());
-			ps.setString(8, agentzia.getPasahitza());
-
-			int filasAfectadas = ps.executeUpdate();
-			return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Error al insertar Agentzia: " + e.getMessage());
-			return false;
-		}
 	}
 }
+	
+
+

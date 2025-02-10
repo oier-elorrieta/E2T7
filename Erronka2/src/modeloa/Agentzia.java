@@ -26,6 +26,22 @@ public class Agentzia {
 		this.erabiltzaile = erabiltzaile;
 		this.Bidaiak = new ArrayList<Bidaia>();
 	}
+	
+	
+
+	public Agentzia(String izena, String logoa, String markaKolorea, String langileKopurua,
+			String agentziaMota, String pasahitza, String erabiltzaile) {
+
+		this.izena = izena;
+		this.logoa = logoa;
+		this.markaKolorea = markaKolorea;
+		this.langileKopurua = langileKopurua;
+		this.agentziaMota = agentziaMota;
+		this.pasahitza = pasahitza;
+		this.erabiltzaile = erabiltzaile;
+	}
+
+
 
 	public int getIdentifikatzailea() {
 		return identifikatzailea;

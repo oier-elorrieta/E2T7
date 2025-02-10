@@ -6,7 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
+import DAO.AgentziaDAO;
+import DAO.AgentziaMotaDAO;
+import DAO.BidaiMotaDAO;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -20,11 +22,13 @@ import javax.swing.JColorChooser;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 import Konexioa.ConnectDB;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import modeloa.Agentzia;
+import modeloa.AgentziaMota;
+
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -36,14 +40,30 @@ public class Erregistratu extends JFrame {
 	private JPasswordField pasahitzaField;
 	private JTextField erabiltzaileField;
 	private JTextField colorHexField;
-	private ConnectDB conexion;
 
-	
+
+	ConnectDB konexioa = new ConnectDB();
+	private JTextField logoaField;
+
+	public void setConnection(Connection konexioa) {
+
+		
+		AgentziaMotaDAO AgentziaMotaDAO = new AgentziaMotaDAO();
+	    AgentziaMotaDAO.setConnection(((ConnectDB) konexioa).getConnection());
+	    
+		AgentziaDAO AgentziaDAO = new AgentziaDAO();
+	    AgentziaDAO.setConnection(((ConnectDB) konexioa).getConnection());
+	    
+	    BidaiMotaDAO BidaiMotaDAO = new BidaiMotaDAO();
+	    BidaiMotaDAO.setConnection(((ConnectDB) konexioa).getConnection());
+	    
+
+	}
 	/**
 	 * Create the frame.
 	 */
 	public Erregistratu() {
-		setTitle("Agentzia Erregistratu");
+		setTitle("Erregistroa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 562);
 		contentPane = new JPanel();
@@ -112,7 +132,7 @@ public class Erregistratu extends JFrame {
 		
 		pasahitzaField = new JPasswordField();
 		pasahitzaLabel.setLabelFor(pasahitzaField);
-		pasahitzaField.setBounds(203, 139, 327, 19);
+		pasahitzaField.setBounds(206, 139, 324, 19);
 		contentPane.add(pasahitzaField);
 		
 		erabiltzaileField = new JTextField();
@@ -120,12 +140,20 @@ public class Erregistratu extends JFrame {
 		contentPane.add(erabiltzaileField);
 		erabiltzaileField.setColumns(10);
 		
-		// Textfield 
         colorHexField = new JTextField();
         colorHexField.setEditable(false);
         colorHexField.setBounds(377, 218, 153, 20);
         contentPane.add(colorHexField);
         colorHexField.setColumns(10);
+        
+		JLabel logoLabel = new JLabel("Logoa (url)");
+		logoLabel.setBounds(49, 358, 89, 14);
+		contentPane.add(logoLabel);
+		
+		logoaField = new JTextField();
+		logoaField.setColumns(10);
+		logoaField.setBounds(203, 355, 327, 20);
+		contentPane.add(logoaField);
 
         // Kolorea aukeratzeko botoia
         JButton colorButton = new JButton("Seleccionar color");
@@ -146,6 +174,64 @@ public class Erregistratu extends JFrame {
         });
 		
 		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        // Recoger los datos del formulario
+		        String izenaAgentzia = agentziaIzenaField.getText();  // Nombre de la agencia
+		        String logoAgentzia = logoaField.getText();        // Logo o color (según cómo lo uses)
+		        String kolorea = colorHexField.getText();             // Color de la agencia
+		        String erabiltzailea = erabiltzaileField.getText();  // Nombre de usuario
+		        String pasahitza = new String(pasahitzaField.getPassword()); // Contraseña
+		        String agentziaMota = agentziaChoice.getSelectedItem();
+		        String langileKopuru = "";
+
+		        // Comprobar si todos los campos obligatorios están rellenos
+		        if (izenaAgentzia.isEmpty() || erabiltzailea.isEmpty() || pasahitza.isEmpty()) {
+		            // Mostrar un mensaje de error si faltan campos obligatorios
+		            System.out.println("Mesedez, Bete beharrezkoak diren hutsune guztiak.");
+		            return;
+		        }
+
+		        // Obtener el tipo de agencia seleccionado
+		        if (txikiaRadioButton.isSelected()) {
+		        	langileKopuru = "L1";
+		        } else if (ertainaRadioButton.isSelected()) {
+		        	langileKopuru = "L2";
+		        } else if (handiaRadioButton.isSelected()) {
+		        	langileKopuru = "L3";
+		        } else {
+		            System.out.println("Mesedez, aukeratu agentzia mota bat");
+		            return;
+		        }
+		        
+		        
+		        if (agentziaMota.equals("Mayorista")) {
+		        	agentziaMota = "A1";
+		        } else if (agentziaMota.equals("Minorista")) {
+		        	agentziaMota= "A2";
+		        } else if (agentziaMota.equals("Mayorista-minorista")) {
+		        	agentziaMota= "A3";
+		        }
+
+		        // Crear un objeto Agentzia con los datos del formulario
+		        Agentzia agentziaBerria = new Agentzia(izenaAgentzia, logoAgentzia, kolorea, langileKopuru, agentziaMota, pasahitza, erabiltzailea);
+
+		        // Llamar al DAO para insertar la nueva agencia
+		        AgentziaDAO agentziaDAO = new AgentziaDAO();
+		        //agentziaDAO.setConnection(((ConnectDB) konexioa).getConnection()); // Establecer la conexión con el DAO
+
+		        boolean exito = agentziaDAO.sartuAgentzia(agentziaBerria);
+
+		        if (exito) {
+		            System.out.println("Agentzia gordeta");
+		        } else {
+		            System.out.println("Errorea Agentzia erregistratzen");
+		        }
+
+		        // Cerrar la ventana de registro después de la inserción
+		        dispose();
+		    }
+		});
 		okButton.setBounds(346, 448, 89, 23);
 		contentPane.add(okButton);
 		
@@ -168,6 +254,16 @@ public class Erregistratu extends JFrame {
 		});
 		atzeraButton.setBounds(118, 448, 89, 23);
 		contentPane.add(atzeraButton);
+		
+
+		
+
+	    AgentziaMotaDAO agentziaMotaDAO = new AgentziaMotaDAO();
+	    ArrayList<AgentziaMota> agentziaMotak = agentziaMotaDAO.lortuAgentziaMotak();
+
+	    for (AgentziaMota agentziaMota : agentziaMotak) {
+	        agentziaChoice.add(agentziaMota.getMotaDeskribapena());
+	    }
 	}
 }
 
