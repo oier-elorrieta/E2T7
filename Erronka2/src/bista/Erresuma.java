@@ -33,6 +33,7 @@ public class Erresuma extends JFrame {
 	private JTable zerbitzuTable;
 	private String IDLerroaZ = "";
 	private String IDtaula = "";
+	private String IDLerroa = "";
 	
 	ArrayList<Bidaia> bidaiak;
 
@@ -136,7 +137,7 @@ public class Erresuma extends JFrame {
 					
 					int row = bidaiaTable.getSelectedRow();
 					if (row != -1) {
-						String IDLerroa = (String) bidaiaTable.getValueAt(row, 0);
+						IDLerroa = (String) bidaiaTable.getValueAt(row, 0);
 					
 						Bidaia selectedBidaia = null;
 						for (Bidaia bidaia : bidaiak) {
@@ -264,6 +265,21 @@ public class Erresuma extends JFrame {
 		contentPane.add(gehituBButton);
 		
 		JButton gehituZButton = new JButton("GEHITU");
+		gehituZButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ZerbitzuBerria frame = new ZerbitzuBerria(erabiltzailezbk, bidaiak, IDLerroa);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				
+			}
+		});
 		gehituZButton.setBounds(1294, 613, 129, 48);
 		contentPane.add(gehituZButton);
 		

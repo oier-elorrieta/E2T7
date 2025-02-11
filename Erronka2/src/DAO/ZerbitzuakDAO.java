@@ -148,5 +148,87 @@ public class ZerbitzuakDAO {
 				System.err.println(w.getMessage());
 			}
 		}
+		
+		public boolean sartuOstatua(Zerbitzua zerbitzua, int IDBidaia) {
+			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
+					 + "VALUES ('" + zerbitzua.getIzenaOstatua() + "', '" 
+		        //       + zerbitzua.getHiria() + "', '" 
+		               + zerbitzua.getPrezioaOstatua() + "', '"
+		    	       + zerbitzua.getSarreraEguna() + "', '"
+		               + zerbitzua.getIrteeraEguna() + "', '"
+				       + zerbitzua.getLogelaMota() + "', '"	
+				       + IDBidaia + "');";
+	
+			try (Statement stmt = konexioa.createStatement()) {
+		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
+	
+		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+		        return false;
+		    } 
+	}
+		
+		public boolean sartuBesteZerbitzua(Zerbitzua zerbitzua, int IDBidaia) {
+			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
+					 + "VALUES ('" + zerbitzua.getBesteZerbitzuak() + "', '" 
+		               + zerbitzua.getDataBesteZerbitzua() + "', '"
+		    	//       + zerbitzua.getDeskribapena + "', '"
+		               + zerbitzua.getPrezioaBesteZerbitzuak() + "', '"
+				       + IDBidaia + "');";
+	
+			try (Statement stmt = konexioa.createStatement()) {
+		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
+	
+		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+		        return false;
+		    } 
+	}
+		//TODO
+		public boolean sartuHegaldia(Zerbitzua zerbitzua, int IDBidaia) {
+			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
+					 + "VALUES ('" + zerbitzua.getIzenaOstatua() + "', '" 
+		        //       + zerbitzua.getHiria() + "', '" 
+		               + zerbitzua.getPrezioaOstatua() + "', '"
+		    	       + zerbitzua.getSarreraEguna() + "', '"
+		               + zerbitzua.getIrteeraEguna() + "', '"
+				       + zerbitzua.getLogelaMota() + "', '"	
+				       + IDBidaia + "');";
+	
+			try (Statement stmt = konexioa.createStatement()) {
+		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
+	
+		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+		        return false;
+		    } 
+	}
+		//TODO
+		public boolean sartuJoanEtorri(Zerbitzua zerbitzua, int IDBidaia) {
+			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
+					 + "VALUES ('" + zerbitzua.getIzenaOstatua() + "', '" 
+		        //       + zerbitzua.getHiria() + "', '" 
+		               + zerbitzua.getPrezioaOstatua() + "', '"
+		    	       + zerbitzua.getSarreraEguna() + "', '"
+		               + zerbitzua.getIrteeraEguna() + "', '"
+				       + zerbitzua.getLogelaMota() + "', '"	
+				       + IDBidaia + "');";
+	
+			try (Statement stmt = konexioa.createStatement()) {
+		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
+	
+		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+		        return false;
+		    } 
+	}
 
 }
