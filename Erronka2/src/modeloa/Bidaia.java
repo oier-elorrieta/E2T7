@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Bidaia {
 
+	
 	private String identifikatzailea;
 	private String izena;
 	private String deskribapena;
@@ -45,16 +46,31 @@ public class Bidaia {
 		this.helmuga = helmuga;
 		this.agentzia = agentzia;
 	}
-
-
+	
 
 	public String getIdentifikatzailea() {
 		return identifikatzailea;
 	}
 
+
+
 	public void setIdentifikatzailea(String identifikatzailea) {
 		this.identifikatzailea = identifikatzailea;
 	}
+
+
+
+	public String getAgentziaIzena() {
+		return agentziaIzena;
+	}
+
+
+
+	public void setAgentziaIzena(String agentziaIzena) {
+		this.agentziaIzena = agentziaIzena;
+	}
+
+
 
 	public int getAgentzia() {
 		return agentzia;

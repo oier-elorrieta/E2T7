@@ -54,8 +54,6 @@ public class BidaiBerria extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
-		
 		JLabel izenaBidaiaLabel = new JLabel("Bidaiaren Izena:");
 		izenaBidaiaLabel.setBounds(47, 160, 110, 14);
 		contentPane.add(izenaBidaiaLabel);
@@ -146,9 +144,9 @@ public class BidaiBerria extends JFrame {
         		 boolean exito = BidaiaDAO.sartuBidaia(bidaiBerria);
 
  		        if (exito) {
- 		            System.out.println("Agentzia gordeta");
+ 		            System.out.println("Bidaiaa gordeta");
  		        } else {
- 		            System.out.println("Errorea Agentzia erregistratzen");
+ 		            System.out.println("Errorea Bidaia erregistratzen");
  		        }
         	}
         	

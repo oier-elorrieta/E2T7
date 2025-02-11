@@ -31,6 +31,8 @@ public class Erresuma extends JFrame {
 	private JPanel contentPane;
 	private JTable bidaiaTable;
 	private JTable zerbitzuTable;
+	private String IDLerroaZ = "";
+	private String IDtaula = "";
 	
 	ArrayList<Bidaia> bidaiak;
 
@@ -56,14 +58,14 @@ public class Erresuma extends JFrame {
 	            System.out.println("Kod Herrialdea: " + bidaia.getHelmuga());
 	            System.out.println("Izena Agentzia: " + bidaia.getAgentzia());
 	            System.out.println("-------------");
+
+	            bidaia.setZerbitzuak(ZerbitzuakDAO.lortuZerbitzuBidaia(bidaia.getIdentifikatzailea()));
+	            
 	        }
 			
-			ArrayList<Zerbitzua> zerbitzuak = ZerbitzuakDAO.lortuZerbitzuBidaia(erabiltzailezbk);
 			
-			for (Zerbitzua zerbitzua : zerbitzuak) {
-				System.out.println(zerbitzua);
-			}
 			
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1546, 947);
@@ -159,28 +161,12 @@ public class Erresuma extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Beste Zerbitzua", "Data", "Deskribapena BZ", "Prezioa BZ"
+				"ID Zerbitzual", "Zerbitzu Mota", "Izena", "Data", "Prezioa"
 			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				true, true, false, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-			
-			
-		});
-		
-
-		
-		zerbitzuTable.getColumnModel().getColumn(2).setPreferredWidth(103);
+		));
+		zerbitzuTable.getColumnModel().getColumn(1).setPreferredWidth(91);
 		zerbitzuTable.setBounds(122, 495, 1115, 177);
 		contentPane.add(zerbitzuTable);
-		
-		JButton aldatuBButton = new JButton("ALDATU");
-		aldatuBButton.setBounds(1294, 261, 129, 48);
-		contentPane.add(aldatuBButton);
 		
 		JButton ezabatuBButton = new JButton("EZABATU");
 		ezabatuBButton.addActionListener(new ActionListener() {
@@ -206,11 +192,31 @@ public class Erresuma extends JFrame {
 		ezabatuBButton.setBounds(1294, 320, 129, 48);
 		contentPane.add(ezabatuBButton);
 		
-		JButton aldatuZButton = new JButton("ALDATU");
-		aldatuZButton.setBounds(1294, 495, 129, 48);
-		contentPane.add(aldatuZButton);
+		zerbitzuTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				int row = zerbitzuTable.getSelectedRow();
+				if (row != -1) {
+					IDLerroaZ = (String) zerbitzuTable.getValueAt(row, 0);
+					IDtaula = (String) zerbitzuTable.getValueAt(row, 1);
+					
+
+					 
+				}	
+
+			}
+		
+		});
 		
 		JButton ezabatuZButton = new JButton("EZABATU");
+		ezabatuZButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ZerbitzuakDAO.ezabatuZerbitzua(IDtaula, IDLerroaZ);
+				
+			}
+		});
 		ezabatuZButton.setBounds(1294, 554, 129, 48);
 		contentPane.add(ezabatuZButton);
 		
@@ -257,14 +263,14 @@ public class Erresuma extends JFrame {
 		gehituBButton.setBounds(1294, 379, 129, 48);
 		contentPane.add(gehituBButton);
 		
-		JButton gehituZButton = new JButton("ALDATU");
+		JButton gehituZButton = new JButton("GEHITU");
 		gehituZButton.setBounds(1294, 613, 129, 48);
 		contentPane.add(gehituZButton);
 		
 	}
 		
 
-	
+	//REVISAR LOCALIZACIÓN DEL MÉTODO
 	private void updateZerbitzuTable(ArrayList<Zerbitzua> zerbitzuak) {
 		
 		DefaultTableModel zerbitzuModel = (DefaultTableModel) zerbitzuTable.getModel();
@@ -272,12 +278,57 @@ public class Erresuma extends JFrame {
 		zerbitzuModel.setRowCount(0);
 		
 			for (Zerbitzua zerbitzua : zerbitzuak) {
-				String[] row = {
-						zerbitzua.getIzenaOstatua(),
-						zerbitzua.getHegaldiKodea(),
-						zerbitzua.getAeroLineaBuelta()
-				};
-			zerbitzuModel.addRow(row);
+				
+				
+				if(zerbitzua.getOstatuKodea()>0) {
+					String[] row = {
+							String.valueOf(zerbitzua.getOstatuKodea()),
+							"Ostatua",
+							zerbitzua.getIzenaOstatua(),
+							String.valueOf(zerbitzua.getPrezioaOstatua()),
+							zerbitzua.getSarreraEguna(),
+					};
+					zerbitzuModel.addRow(row);
+				} else if (zerbitzua.getIDJoanEtorri()>0) {
+					String[] row = {
+							String.valueOf(zerbitzua.getIDJoanEtorri()),
+							"Hegaldia (Buelta)",
+							zerbitzua.getHegaldiKodeaBuelta(),
+							zerbitzua.getIrteeraData(),
+						};
+						zerbitzuModel.addRow(row);
+					
+				} else if (zerbitzua.getHegaldia()>0) {
+					String[] row = {
+							String.valueOf(zerbitzua.getHegaldia()),
+							"Hegaldia",
+							zerbitzua.getHegaldiKodea(),
+							String.valueOf(zerbitzua.getPrezioaHegaldia()),
+							zerbitzua.getIrteeraData(),
+					};
+					zerbitzuModel.addRow(row);
+				
+				} else if (zerbitzua.getBesteKodea()>0) {
+					String[] row = {
+							String.valueOf(zerbitzua.getBesteKodea()),
+							"Beste Zerbitzuak",
+							zerbitzua.getBesteZerbitzuak(),
+							String.valueOf(zerbitzua.getPrezioaBesteZerbitzuak()),
+							zerbitzua.getDataBesteZerbitzua(),
+						};
+						zerbitzuModel.addRow(row);
+				}
 			}
 	}
 }
+				
+				
+	
+
+			
+
+			
+	
+	
+
+

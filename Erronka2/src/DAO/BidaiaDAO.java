@@ -38,7 +38,7 @@ public class BidaiaDAO {
 				String agentzia = rs.getString("izenaAgentzia");
 				String bidaiaMota = rs.getString("deskribapenaBidaiMota");
 
-				ArrayList<Zerbitzua> zerbitzuak = ZerbitzuakDAO.lortuZerbitzuBidaia(erabiltzailezbk);
+				ArrayList<Zerbitzua> zerbitzuak = ZerbitzuakDAO.lortuZerbitzuBidaia(identifikatzailea);
 				
 				
 				Bidaia bidaia = new Bidaia(identifikatzailea, izena, deskribapena, bidaiaMota, dataIrteera, dataAmaiera, iraupena, helmuga, zerbitzuak, agentzia);
@@ -95,7 +95,8 @@ public class BidaiaDAO {
 	    }
 		
 
-}
+	}
+
 }
 
 
