@@ -25,6 +25,8 @@ public class ZerbitzuBerria extends JFrame {
 			setBounds(100, 100, 699, 393);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			
+			int intIDLerroa = Integer.parseInt(IDLerroa);
 	
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
@@ -35,7 +37,7 @@ public class ZerbitzuBerria extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								Ostatua frame = new Ostatua();
+								Ostatua frame = new Ostatua(erabiltzailezbk, bidaiak, intIDLerroa);
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -53,7 +55,7 @@ public class ZerbitzuBerria extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								Hegaldia frame = new Hegaldia();
+								Hegaldia frame = new Hegaldia(erabiltzailezbk, bidaiak, intIDLerroa);
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -71,7 +73,7 @@ public class ZerbitzuBerria extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								BesteZerbitzua frame = new BesteZerbitzua();
+								BesteZerbitzua frame = new BesteZerbitzua(erabiltzailezbk, bidaiak, intIDLerroa);
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();

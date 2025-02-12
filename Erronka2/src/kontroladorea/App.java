@@ -11,9 +11,6 @@ public class App extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 
 		ConnectDB konexioa = new ConnectDB(); 
@@ -46,6 +43,12 @@ public class App extends JFrame {
 	    
 	    AgentziaMotaDAO agentziaMotaDAO = new AgentziaMotaDAO();
 	    agentziaMotaDAO.setConnection(konexioa.getConnection());
+	    
+	    LogelaMotaDAO logelaMotaDAO = new LogelaMotaDAO();
+	    logelaMotaDAO.setConnection(konexioa.getConnection());
+	    
+	    AirelineaDAO airelineaDAO = new AirelineaDAO();
+	    airelineaDAO.setConnection(konexioa.getConnection());
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

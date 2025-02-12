@@ -26,18 +26,6 @@ public class Ongietorri extends JFrame {
 	private JTextField erabiltzaileField;
 	private JPasswordField passwordField;
 
-	
-
-	
-
-
-	/*public void setConnection(Connection konexioa1) {
-		this.konexioa = (ConnectDB) konexioa1;
-	}*/
-
-	/**
-	 * Create the frame.
-	 */
 
 	public Ongietorri() {
 

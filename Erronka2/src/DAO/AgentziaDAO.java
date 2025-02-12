@@ -136,7 +136,10 @@ public class AgentziaDAO {
 		        e.printStackTrace();
 		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
 		        return false;
-		    } 
+		    } catch (Exception w) {
+		    	System.out.println(w.getMessage());
+				return false;
+		    }
 			
 
 	}

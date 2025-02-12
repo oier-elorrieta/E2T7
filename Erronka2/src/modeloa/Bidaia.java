@@ -48,6 +48,12 @@ public class Bidaia {
 	}
 	
 
+	public Bidaia() {
+		
+	}
+
+
+
 	public String getIdentifikatzailea() {
 		return identifikatzailea;
 	}

@@ -5,19 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import modeloa.Aireportua;
 
 public class AireportuaDAO {
 
-	private Connection konexioa;
+	private static Connection konexioa;
 
 	public void setConnection(Connection konexioa) {
 		this.konexioa = konexioa;
 	}
 
-	public List<Aireportua> lortuAireportuGuztiak() {
-	    List<Aireportua> aireportuak = new ArrayList<>();
+	public ArrayList<Aireportua> lortuAireportuGuztiak() {
+	    ArrayList<Aireportua> aireportuak = new ArrayList<>();
 	    String kontsulta = "SELECT kodAireportua, hiria FROM aireportua";
 	    try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(kontsulta)) {
 	        while (rs.next()) {
@@ -33,6 +32,22 @@ public class AireportuaDAO {
 
 	    return aireportuak;
 	}
-
+	
+	public static String lortuID(String aireportua) {
+		String sql = "SELECT kodAireportua, hiria FROM aireportua";
+		String aireportuKodea = "";
+		
+		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				if (aireportua.equals(rs.getString("hiria"))) {
+					aireportuKodea =rs.getString("kodAireportua");
+				} 
+			}
+			} catch (SQLException z) {
+				System.err.println("Errorea bidai motak berreskuratzen: " + z.getMessage());
+			}
+		
+		return aireportuKodea;
+		}
 
 }

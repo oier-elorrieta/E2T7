@@ -24,7 +24,7 @@ public class ZerbitzuakDAO {
 		
 		String sqlOstatua= "SELECT o.IDostatua, o.izenaOstatua, o.hiria, o.prezioOstatua, o.sarreraEguna, o.irteeraEguna, o.bidaiaOs, o.kodLogelaMota FROM ostatua o WHERE o.bidaiaOs = " + identifikatzailea + ";";
 		
-		String sqlBeste= "SELECT bz.IDBesteZerbitzuak, bz.izenaBesteZerbitzuak, bz.data, bz.deskribapenaBesteZerbitzuak, bz.prezioBesteZerbitzua, bz.data, bz.bidaiaBe FROM beste_zerbitzuak bz WHERE bz.bidaiaBe = " + identifikatzailea + ";";
+		String sqlBeste= "SELECT bz.IDBesteZerbitzuak, bz.izenaBesteZerbitzuak, bz.data, bz.deskribapenaBesteZerbitzuak, bz.prezioBesteZerbitzua, bz.bidaiaBe FROM beste_zerbitzuak bz WHERE bz.bidaiaBe = " + identifikatzailea + ";";
 		
 		
 		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sqlHegaldia)) {
@@ -102,9 +102,10 @@ public class ZerbitzuakDAO {
 					String besteZerbitzuak = rs.getString("bz.izenaBesteZerbitzuak");
 					double prezioaBesteZerbitzuak = rs.getInt("bz.prezioBesteZerbitzua");
 					String dataBesteZerbitzua = rs.getString("bz.data");
+					String deskribapenaBesteZerbitzua = rs.getString("bz.deskribapenaBesteZerbitzuak");
 					
 	
-					Zerbitzua zerbitzua = new Zerbitzua(kodeaBesteZerbitzua, besteZerbitzuak, prezioaBesteZerbitzuak, dataBesteZerbitzua);
+					Zerbitzua zerbitzua = new Zerbitzua(kodeaBesteZerbitzua, besteZerbitzuak, prezioaBesteZerbitzuak, dataBesteZerbitzua, deskribapenaBesteZerbitzua);
 	
 					zerbitzuak.add(zerbitzua);
 				}
@@ -152,7 +153,7 @@ public class ZerbitzuakDAO {
 		public boolean sartuOstatua(Zerbitzua zerbitzua, int IDBidaia) {
 			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
 					 + "VALUES ('" + zerbitzua.getIzenaOstatua() + "', '" 
-		        //       + zerbitzua.getHiria() + "', '" 
+					   + zerbitzua.getOstatuaHiria() + "', '" 
 		               + zerbitzua.getPrezioaOstatua() + "', '"
 		    	       + zerbitzua.getSarreraEguna() + "', '"
 		               + zerbitzua.getIrteeraEguna() + "', '"
@@ -171,10 +172,10 @@ public class ZerbitzuakDAO {
 	}
 		
 		public boolean sartuBesteZerbitzua(Zerbitzua zerbitzua, int IDBidaia) {
-			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
+			String sql = "INSERT INTO beste_zerbitzuak (izenaBesteZerbitzuak, data, deskribapenaBesteZerbitzuak, prezioBesteZerbitzua, bidaiaBe) "
 					 + "VALUES ('" + zerbitzua.getBesteZerbitzuak() + "', '" 
 		               + zerbitzua.getDataBesteZerbitzua() + "', '"
-		    	//       + zerbitzua.getDeskribapena + "', '"
+		    	       + zerbitzua.getDeskribapenaBesteZerbitzua() + "', '"
 		               + zerbitzua.getPrezioaBesteZerbitzuak() + "', '"
 				       + IDBidaia + "');";
 	
@@ -188,36 +189,17 @@ public class ZerbitzuakDAO {
 		        return false;
 		    } 
 	}
-		//TODO
+
 		public boolean sartuHegaldia(Zerbitzua zerbitzua, int IDBidaia) {
-			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
-					 + "VALUES ('" + zerbitzua.getIzenaOstatua() + "', '" 
-		        //       + zerbitzua.getHiria() + "', '" 
-		               + zerbitzua.getPrezioaOstatua() + "', '"
-		    	       + zerbitzua.getSarreraEguna() + "', '"
-		               + zerbitzua.getIrteeraEguna() + "', '"
-				       + zerbitzua.getLogelaMota() + "', '"	
-				       + IDBidaia + "');";
-	
-			try (Statement stmt = konexioa.createStatement()) {
-		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
-	
-		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
-		        return false;
-		    } 
-	}
-		//TODO
-		public boolean sartuJoanEtorri(Zerbitzua zerbitzua, int IDBidaia) {
-			String sql = "INSERT INTO ostatua (izenaOstatua, hiria, prezioOstatua, sarreraEguna, irteeraEguna, kodLogelaMota, bidaiaOs) "
-					 + "VALUES ('" + zerbitzua.getIzenaOstatua() + "', '" 
-		        //       + zerbitzua.getHiria() + "', '" 
-		               + zerbitzua.getPrezioaOstatua() + "', '"
-		    	       + zerbitzua.getSarreraEguna() + "', '"
-		               + zerbitzua.getIrteeraEguna() + "', '"
-				       + zerbitzua.getLogelaMota() + "', '"	
+			String sql = "INSERT INTO hegaldia (HegaldiKodea, BidaiaIraupen, prezioaHegaldia, IrteeraData, IrteeraOrdutegia, KodAirelinea, KodAireIrteera, KodAireHelmuga, bidaiaHe) "
+					 + "VALUES ('" + zerbitzua.getHegaldiKodea() + "', '" 
+		               + zerbitzua.getBidaiarenIraupena() + "', '"
+		    	       + zerbitzua.getPrezioaHegaldia() + "', '"
+		               + zerbitzua.getIrteeraData() + "', '"
+				       + zerbitzua.getIrteeraOrdutegia() + "', '"
+				       + zerbitzua.getAeroLinea() + "', '"
+				       + zerbitzua.getJatorrizkoAireportua() + "', '"
+				       + zerbitzua.getHelmugakoAireportua() + "', '"
 				       + IDBidaia + "');";
 	
 			try (Statement stmt = konexioa.createStatement()) {
@@ -231,4 +213,40 @@ public class ZerbitzuakDAO {
 		    } 
 	}
 
-}
+		public boolean sartuJoanEtorri(Zerbitzua zerbitzua, int IDBidaia) {
+			String sql = "INSERT INTO joanetorri (IDJoanEtorri, itzuleraOrdua, itzuleraData, bueltakoIraupena, HegaldiKodeaBuelta, kodAirelinea, kodAireIrteera, kodAireHelmuga) "
+		             + "VALUES ('" + IDBidaia + "', '" 
+		             + zerbitzua.getBueltaOrdutegia() + "', '"
+		             + zerbitzua.getBueltaData() + "', '"
+		             + zerbitzua.getBidaiarenIraupenaBuelta() + "', '"
+		             + zerbitzua.getHegaldiKodeaBuelta() + "', '"
+		             + zerbitzua.getAeroLineaBuelta() + "', '"
+		             + zerbitzua.getJatorrizkoAireportua() + "', '"
+		             + zerbitzua.getHelmugakoAireportua() + "');";
+
+	
+			try (Statement stmt = konexioa.createStatement()) {
+		        int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
+	
+		        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+		        return false;
+		    }
+		}
+			
+			public static int lortuIDHegaldia (String Hegaldikod) {
+				int IDHegaldia = 0;
+				String kontsulta = "Select IDHegaldia, HegaldiKodea from hegaldia where HegaldiKodea like '%" + Hegaldikod + "%';";
+				try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(kontsulta)) {
+					while (rs.next()) {
+						IDHegaldia = rs.getInt("IDHegaldia");
+						
+					} 
+				}catch (SQLException w) {
+					System.out.println("Errorea Hegaldia bilatzen: " + w.getMessage());
+					}
+				return IDHegaldia;
+				}
+			}

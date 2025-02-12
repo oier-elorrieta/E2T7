@@ -1,14 +1,26 @@
 package bista;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.toedter.calendar.JDateChooser;
+
+import DAO.ZerbitzuakDAO;
+import modeloa.Bidaia;
+import modeloa.Zerbitzua;
+
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.awt.event.ActionEvent;
 
 public class BesteZerbitzua extends JFrame {
 
@@ -16,13 +28,15 @@ public class BesteZerbitzua extends JFrame {
 	private JPanel contentPane;
 	private JTextField izenaBField;
 	private JTextField prezioaBField;
-	private JTextField textField;
+	private JTextField deskribapenaBesteField;
 
-	public BesteZerbitzua() {
+	public BesteZerbitzua(int erabiltzailezbk, ArrayList<Bidaia> bidaiak, int IDLerroa) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 559, 412);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		ZerbitzuakDAO besteZerbitzuakDAO = new ZerbitzuakDAO();
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -32,6 +46,7 @@ public class BesteZerbitzua extends JFrame {
 		contentPane.add(atzeraBButton);
 		
 		JButton gordeBButton = new JButton("GORDE");
+
 		gordeBButton.setBounds(327, 283, 110, 66);
 		contentPane.add(gordeBButton);
 		
@@ -55,6 +70,8 @@ public class BesteZerbitzua extends JFrame {
 		irteeraBDateChooser.setBounds(223, 99, 200, 20);
 		contentPane.add(irteeraBDateChooser);
 		
+
+		
 		izenaBField = new JTextField();
 		izenaBField.setBounds(223, 55, 200, 20);
 		contentPane.add(izenaBField);
@@ -69,9 +86,32 @@ public class BesteZerbitzua extends JFrame {
 		euroOLabel.setBounds(331, 145, 46, 14);
 		contentPane.add(euroOLabel);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(223, 188, 200, 20);
-		contentPane.add(textField);
+		deskribapenaBesteField = new JTextField();
+		deskribapenaBesteField.setColumns(10);
+		deskribapenaBesteField.setBounds(223, 188, 200, 20);
+		contentPane.add(deskribapenaBesteField);
+		
+		//Beste Zerbitzua gordetzeko botoia
+		gordeBButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				SimpleDateFormat formatoa = new SimpleDateFormat("yyyy-MM-dd");
+				
+				String izenaBesteZerbitzua = izenaBField.getText();
+				Date dataBDate = irteeraBDateChooser.getDate();
+				if (dataBDate == null) {
+				    JOptionPane.showMessageDialog(null, "Mesedez, hautatu data bat.");
+				    return;
+				}
+				String dataB = formatoa.format(dataBDate);
+				double prezioaB = Double.parseDouble(prezioaBField.getText());
+				String deskribapenaB = deskribapenaBesteField.getText();
+				
+				
+				Zerbitzua besteZerbitzua = new Zerbitzua(izenaBesteZerbitzua, prezioaB, dataB, deskribapenaB, IDLerroa);
+				besteZerbitzuakDAO.sartuBesteZerbitzua(besteZerbitzua, IDLerroa);
+				
+			}
+		});
 	}
 }

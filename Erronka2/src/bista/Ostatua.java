@@ -1,14 +1,28 @@
 package bista;
 
-import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.toedter.calendar.JDateChooser;
+
+import DAO.LogelaMotaDAO;
+import DAO.ZerbitzuakDAO;
+import modeloa.Bidaia;
+import modeloa.LogelaMota;
+import modeloa.Zerbitzua;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.awt.event.ActionEvent;
+import java.awt.Choice;
 
 public class Ostatua extends JFrame {
 
@@ -16,71 +30,120 @@ public class Ostatua extends JFrame {
 	private JPanel contentPane;
 	private JTextField izenaOField;
 	private JTextField hiriaOField;
-	private JTextField textField_2;
+	private JTextField prezioaOField;
 
-	public Ostatua() {
+	public Ostatua(int erabiltzailezbk, ArrayList<Bidaia> bidaiak, int IDLerroa) {
 		setTitle("OSTATU BERRIA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 605, 417);
+		setBounds(100, 100, 607, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		ZerbitzuakDAO ostatuaDAO = new ZerbitzuakDAO();
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel izenaOLabel = new JLabel("Ostatuaren Izena:");
-		izenaOLabel.setBounds(41, 70, 117, 14);
+		izenaOLabel.setBounds(41, 47, 117, 14);
 		contentPane.add(izenaOLabel);
 		
 		JLabel hiriaOLabel = new JLabel("Hiria:");
-		hiriaOLabel.setBounds(41, 114, 117, 14);
+		hiriaOLabel.setBounds(41, 85, 117, 14);
 		contentPane.add(hiriaOLabel);
 		
 		JLabel prezioaOLabel = new JLabel("Prezioa:");
-		prezioaOLabel.setBounds(41, 157, 117, 14);
+		prezioaOLabel.setBounds(41, 169, 117, 14);
 		contentPane.add(prezioaOLabel);
 		
 		JDateChooser sarreraODateChooser = new JDateChooser();
-		sarreraODateChooser.setBounds(243, 193, 200, 20);
+		sarreraODateChooser.setBounds(243, 212, 200, 20);
 		contentPane.add(sarreraODateChooser);
 		
 		JDateChooser irteeraODateChooser = new JDateChooser();
-		irteeraODateChooser.setBounds(243, 239, 200, 20);
+		irteeraODateChooser.setBounds(243, 261, 200, 20);
 		contentPane.add(irteeraODateChooser);
 		
 		JLabel sarreraOLabel = new JLabel("Sarrera Eguna:");
-		sarreraOLabel.setBounds(41, 193, 117, 14);
+		sarreraOLabel.setBounds(41, 212, 117, 14);
 		contentPane.add(sarreraOLabel);
 		
 		JLabel irteeraOLabel = new JLabel("Irteera Eguna:");
-		irteeraOLabel.setBounds(41, 239, 117, 14);
+		irteeraOLabel.setBounds(41, 261, 117, 14);
 		contentPane.add(irteeraOLabel);
 		
+		JLabel logelaMotaLabel = new JLabel("Logela Mota:");
+		logelaMotaLabel.setBounds(41, 126, 117, 14);
+		contentPane.add(logelaMotaLabel);
+		
+		Choice logelaMotaChoice = new Choice();
+		logelaMotaChoice.setBounds(243, 122, 269, 18);
+		contentPane.add(logelaMotaChoice);
+		
 		izenaOField = new JTextField();
-		izenaOField.setBounds(243, 67, 200, 20);
+		izenaOField.setBounds(243, 44, 200, 20);
 		contentPane.add(izenaOField);
 		izenaOField.setColumns(10);
 		
 		hiriaOField = new JTextField();
 		hiriaOField.setColumns(10);
-		hiriaOField.setBounds(243, 111, 200, 20);
+		hiriaOField.setBounds(243, 82, 200, 20);
 		contentPane.add(hiriaOField);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(243, 154, 86, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		prezioaOField = new JTextField();
+		prezioaOField.setBounds(243, 166, 86, 20);
+		contentPane.add(prezioaOField);
+		prezioaOField.setColumns(10);
 		
 		JLabel euroOLabel = new JLabel("€");
 		euroOLabel.setBounds(334, 157, 46, 14);
 		contentPane.add(euroOLabel);
 		
 		JButton atzeraOButton = new JButton("ATZERA");
-		atzeraOButton.setBounds(112, 289, 110, 66);
+		atzeraOButton.setBounds(108, 342, 110, 66);
 		contentPane.add(atzeraOButton);
 		
+		LogelaMotaDAO logelaMotaDAO = new LogelaMotaDAO();
+		ArrayList<LogelaMota> logelaMotak = logelaMotaDAO.lortuLogelaMotak();
+		
+		for (LogelaMota logelaMota : logelaMotak) {
+			logelaMotaChoice.add(logelaMota.getDeskribapenaLogelaMota());
+		}
+		
 		JButton gordeOButton = new JButton("GORDE");
-		gordeOButton.setBounds(334, 289, 110, 66);
+		gordeOButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				double prezioaOstatua = Double.parseDouble(prezioaOField.getText());
+				SimpleDateFormat formatoa = new SimpleDateFormat("yyyy-MM-dd");
+				
+
+				Date sarreraODate = sarreraODateChooser.getDate();
+				if (sarreraODate == null) {
+				    JOptionPane.showMessageDialog(null, "Mesedez, hautatu data bat.");
+				    return;
+				}
+				String sarreraOData = formatoa.format(sarreraODate);
+				
+				Date irteeraODate = irteeraODateChooser.getDate();
+				if (irteeraODate == null) {
+				    JOptionPane.showMessageDialog(null, "Mesedez, hautatu data bat.");
+				    return;
+				}
+				String irteeraOData = formatoa.format(irteeraODate);
+				
+				String logelaMota = LogelaMotaDAO.lortuID(logelaMotaChoice.getSelectedItem());
+				
+				String izenaOstatua = izenaOField.getText();
+				
+				String ostatuaHiria = hiriaOField.getText();
+				
+				Zerbitzua ostatua = new Zerbitzua(prezioaOstatua, ostatuaHiria, sarreraOData, irteeraOData, logelaMota, izenaOstatua, IDLerroa);
+				ostatuaDAO.sartuOstatua(ostatua, IDLerroa);
+			}
+		});
+		gordeOButton.setBounds(333, 342, 110, 66);
 		contentPane.add(gordeOButton);
+		
 	}
 }
