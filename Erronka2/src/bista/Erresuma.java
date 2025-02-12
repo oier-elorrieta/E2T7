@@ -35,6 +35,7 @@ public class Erresuma extends JFrame {
 	private String IDLerroaZ = "";
 	private String IDtaula = "";
 	private String IDLerroa = "";
+	private Bidaia selectedBidaia;
 
 	ArrayList<Bidaia> bidaiak;
 
@@ -125,7 +126,7 @@ public class Erresuma extends JFrame {
 				if (row != -1) {
 					IDLerroa = (String) bidaiaTable.getValueAt(row, 0);
 
-					Bidaia selectedBidaia = null;
+					selectedBidaia = null;
 					for (Bidaia bidaia : bidaiak) {
 						if (bidaia.getIdentifikatzailea().equals(IDLerroa)) {
 							selectedBidaia = bidaia;
@@ -194,8 +195,11 @@ public class Erresuma extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				ZerbitzuakDAO.ezabatuZerbitzua(IDtaula, IDLerroaZ);
+				Kudeatzaile.ezabatuZerbitzua(selectedBidaia, zerbitzuTable, IDLerroa, IDLerroaZ);
 
+				bidaiaTable.repaint();
 			}
+
 		});
 		ezabatuZButton.setBounds(1294, 554, 129, 48);
 		contentPane.add(ezabatuZButton);

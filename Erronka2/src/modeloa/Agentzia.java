@@ -13,9 +13,10 @@ public class Agentzia {
 	private String pasahitza;
 	private String erabiltzaile;
 	@SuppressWarnings("unused")
-	private ArrayList <Bidaia> Bidaiak;
+	private ArrayList<Bidaia> Bidaiak;
 
-	public Agentzia(int idAgentzia, String izena, String logoa, String markaKolorea, String langileKopurua, String agentziaMota, String pasahitza, String erabiltzaile, ArrayList<Bidaia> Bidaiak) {
+	public Agentzia(int idAgentzia, String izena, String logoa, String markaKolorea, String langileKopurua,
+			String agentziaMota, String pasahitza, String erabiltzaile, ArrayList<Bidaia> Bidaiak) {
 		this.identifikatzailea = idAgentzia;
 		this.izena = izena;
 		this.logoa = logoa;
@@ -26,11 +27,9 @@ public class Agentzia {
 		this.erabiltzaile = erabiltzaile;
 		this.Bidaiak = new ArrayList<Bidaia>();
 	}
-	
-	
 
-	public Agentzia(String izena, String logoa, String markaKolorea, String langileKopurua,
-			String agentziaMota, String pasahitza, String erabiltzaile) {
+	public Agentzia(String izena, String logoa, String markaKolorea, String langileKopurua, String agentziaMota,
+			String pasahitza, String erabiltzaile) {
 
 		this.izena = izena;
 		this.logoa = logoa;
@@ -40,8 +39,6 @@ public class Agentzia {
 		this.pasahitza = pasahitza;
 		this.erabiltzaile = erabiltzaile;
 	}
-
-
 
 	public int getIdentifikatzailea() {
 		return identifikatzailea;
@@ -90,7 +87,7 @@ public class Agentzia {
 	public void setAgentziaMota(String agentziaMota) {
 		this.agentziaMota = agentziaMota;
 	}
-	
+
 	public String getPasahitza() {
 		return pasahitza;
 	}
@@ -113,6 +110,5 @@ public class Agentzia {
 				+ ", markaKolorea=" + markaKolorea + ", langileKopurua=" + langileKopurua + ", agentziaMota="
 				+ agentziaMota + ", pasahitza=" + pasahitza + ", erabiltzaile=" + erabiltzaile + "]";
 	}
-
 
 }

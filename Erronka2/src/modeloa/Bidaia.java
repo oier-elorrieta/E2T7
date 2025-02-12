@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Bidaia {
 
-	
 	private String identifikatzailea;
 	private String izena;
 	private String deskribapena;
@@ -16,10 +15,11 @@ public class Bidaia {
 	private String helmuga;
 	private int agentzia;
 	private String agentziaIzena;
-	private ArrayList <Zerbitzua> Zerbitzuak;	
+	private ArrayList<Zerbitzua> Zerbitzuak;
 
-	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera, int iraupena, String helmuga, List<Zerbitzua> zerbitzuak2, String agentziaIzena) {
-		
+	public Bidaia(String identifikatzailea, String izena, String deskribapena, String bidaiaMota, String dataIrteera,
+			String dataAmaiera, int iraupena, String helmuga, List<Zerbitzua> zerbitzuak2, String agentziaIzena) {
+
 		this.identifikatzailea = identifikatzailea;
 		this.izena = izena;
 		this.deskribapena = deskribapena;
@@ -32,11 +32,9 @@ public class Bidaia {
 		this.agentziaIzena = agentziaIzena;
 	}
 
-	
-	  
 	public Bidaia(String izena, String deskribapena, String bidaiaMota, String dataIrteera, String dataAmaiera,
 			int iraupena, String helmuga, int agentzia) {
-		
+
 		this.izena = izena;
 		this.deskribapena = deskribapena;
 		this.bidaiaMota = bidaiaMota;
@@ -46,37 +44,26 @@ public class Bidaia {
 		this.helmuga = helmuga;
 		this.agentzia = agentzia;
 	}
-	
 
 	public Bidaia() {
-		
+
 	}
-
-
 
 	public String getIdentifikatzailea() {
 		return identifikatzailea;
 	}
 
-
-
 	public void setIdentifikatzailea(String identifikatzailea) {
 		this.identifikatzailea = identifikatzailea;
 	}
-
-
 
 	public String getAgentziaIzena() {
 		return agentziaIzena;
 	}
 
-
-
 	public void setAgentziaIzena(String agentziaIzena) {
 		this.agentziaIzena = agentziaIzena;
 	}
-
-
 
 	public int getAgentzia() {
 		return agentzia;
@@ -117,7 +104,7 @@ public class Bidaia {
 	public void setDataIrteera(String dataIrteera) {
 		this.dataIrteera = dataIrteera;
 	}
-	
+
 	public String getDataAmaiera() {
 		return dataAmaiera;
 	}
@@ -150,8 +137,6 @@ public class Bidaia {
 		this.Zerbitzuak = Zerbitzuak;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Bidaia [identifikatzailea=" + identifikatzailea + ", izena=" + izena + ", deskribapena=" + deskribapena
@@ -159,7 +144,5 @@ public class Bidaia {
 				+ ", iraupena=" + iraupena + ", helmuga=" + helmuga + ", agentzia=" + agentzia + ", Zerbitzuak="
 				+ Zerbitzuak + "]";
 	}
-
-
 
 }

@@ -31,21 +31,23 @@ public class Zerbitzua {
 	private String ostatuaHiria;
 	private String bueltaData;
 	private String bueltaOrdutegia;
+	private int mota;
 
 	// Constructor de Ostatua Kodearekin
 	public Zerbitzua(int ostatuKodea, double prezioaOstatua, String sarreraEguna, String irteeraEguna,
-			String logelaMota, String izenaOstatua) {
+			String logelaMota, String izenaOstatua, int mota) {
 		this.ostatuKodea = ostatuKodea;
 		this.prezioaOstatua = prezioaOstatua;
 		this.sarreraEguna = sarreraEguna;
 		this.irteeraEguna = irteeraEguna;
 		this.logelaMota = logelaMota;
 		this.izenaOstatua = izenaOstatua;
+		this.mota = mota;
 	}
 
 	// Constructor de Ostatua kode gabe
 	public Zerbitzua(double prezioaOstatua, String ostatuaHiria, String sarreraEguna, String irteeraEguna,
-			String logelaMota, String izenaOstatua, int bidaiaOs) {
+			String logelaMota, String izenaOstatua, int bidaiaOs, int mota) {
 
 		this.prezioaOstatua = prezioaOstatua;
 		this.ostatuaHiria = ostatuaHiria;
@@ -53,32 +55,35 @@ public class Zerbitzua {
 		this.irteeraEguna = irteeraEguna;
 		this.logelaMota = logelaMota;
 		this.izenaOstatua = izenaOstatua;
+		this.mota = mota;
 	}
 
 	// Constructor Beste Zerbitzuak kodearekin
 	public Zerbitzua(int besteKodea, String besteZerbitzuak, double prezioaBesteZerbitzuak, String dataBesteZerbitzua,
-			String deskribapenaBesteZerbitzua) {
+			String deskribapenaBesteZerbitzua, int mota) {
 		this.besteKodea = besteKodea;
 		this.besteZerbitzuak = besteZerbitzuak;
 		this.prezioaBesteZerbitzuak = prezioaBesteZerbitzuak;
 		this.dataBesteZerbitzua = dataBesteZerbitzua;
 		this.deskribapenaBesteZerbitzua = deskribapenaBesteZerbitzua;
+		this.mota = mota;
 	}
 
 	// Constructor Beste Zerbitzuak kode gabe
 	public Zerbitzua(String besteZerbitzuak, double prezioaBesteZerbitzuak, String dataBesteZerbitzua,
-			String deskribapenaBesteZerbitzua, int bidaiaBe) {
+			String deskribapenaBesteZerbitzua, int bidaiaBe, int mota) {
 
 		this.besteZerbitzuak = besteZerbitzuak;
 		this.prezioaBesteZerbitzuak = prezioaBesteZerbitzuak;
 		this.dataBesteZerbitzua = dataBesteZerbitzua;
 		this.deskribapenaBesteZerbitzua = deskribapenaBesteZerbitzua;
+		this.mota = mota;
 	}
 
 	// Constructor Hegaldia
 	public Zerbitzua(int hegaldia, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea,
 			String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia,
-			int bidaiarenIraupena) {
+			int bidaiarenIraupena, int mota) {
 		this.hegaldia = hegaldia;
 		this.jatorrizkoAireportua = jatorrizkoAireportua;
 		this.helmugakoAireportua = helmugakoAireportua;
@@ -88,12 +93,14 @@ public class Zerbitzua {
 		this.irteeraData = irteeraData;
 		this.irteeraOrdutegia = irteeraOrdutegia;
 		this.bidaiarenIraupena = bidaiarenIraupena;
+		this.mota = mota;
 
 	}
 
 	// Constructor Hegaldia kode gabe
 	public Zerbitzua(String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea,
-			double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, int bidaiarenIraupena, int IDBidaia) {
+			double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, int bidaiarenIraupena, int IDBidaia,
+			int mota) {
 
 		this.jatorrizkoAireportua = jatorrizkoAireportua;
 		this.helmugakoAireportua = helmugakoAireportua;
@@ -103,12 +110,14 @@ public class Zerbitzua {
 		this.irteeraData = irteeraData;
 		this.irteeraOrdutegia = irteeraOrdutegia;
 		this.bidaiarenIraupena = bidaiarenIraupena;
+		this.mota = mota;
 
 	}
 
 	// Constructor Joanetorri
 	public Zerbitzua(int IDJoanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String itzuleraData,
-			String itzuleraOrdutegia, int bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta) {
+			String itzuleraOrdutegia, int bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta,
+			int mota) {
 		this.IDJoanEtorri = IDJoanEtorri;
 		this.jatorrizkoAireportua = jatorrizkoAireportua;
 		this.helmugakoAireportua = helmugakoAireportua;
@@ -117,6 +126,7 @@ public class Zerbitzua {
 		this.bidaiarenIraupenaBuelta = bidaiarenIraupenaBuelta;
 		this.hegaldiKodeaBuelta = hegaldiKodeaBuelta;
 		this.aeroLineaBuelta = aeroLineaBuelta;
+		this.mota = mota;
 	}
 
 	public Zerbitzua(int ostatuKodea, int besteKodea, int iDJoanEtorri, double prezioaOstatua, String sarreraEguna,
@@ -150,6 +160,14 @@ public class Zerbitzua {
 		this.hegaldiKodeaBuelta = hegaldiKodeaBuelta;
 		this.aeroLineaBuelta = aeroLineaBuelta;
 		this.dataBesteZerbitzua = dataBesteZerbitzua;
+	}
+
+	public int getMota() {
+		return mota;
+	}
+
+	public void setMota(int mota) {
+		this.mota = mota;
 	}
 
 	public int getOstatuKodea() {

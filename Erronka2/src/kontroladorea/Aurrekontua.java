@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 import modeloa.Bidaia;
 import modeloa.Zerbitzua;
 
@@ -11,7 +14,8 @@ public class Aurrekontua {
 
 	public static void sortuAurrekontua(Bidaia bidaia) {
 		try {
-			BufferedWriter oBufferedWriter = new BufferedWriter(new FileWriter("Aurrekontua" + bidaia.getIzena() + ".txt"));
+			BufferedWriter oBufferedWriter = new BufferedWriter(
+					new FileWriter("Aurrekontua" + bidaia.getIzena() + ".txt"));
 
 			double prezioOsoa = 0;
 
@@ -23,7 +27,7 @@ public class Aurrekontua {
 			if (bidaia.getZerbitzuak() != null) {
 				oBufferedWriter.newLine();
 				for (Zerbitzua zerbitzua : bidaia.getZerbitzuak()) {
-					// TODO Controlar la salida de los servicios
+
 					if (zerbitzua.getIzenaOstatua() != null) {
 						oBufferedWriter.write(
 								"Ostatua: " + zerbitzua.getIzenaOstatua() + "\t" + zerbitzua.getPrezioaOstatua());
@@ -49,6 +53,7 @@ public class Aurrekontua {
 			}
 
 			oBufferedWriter.close();
+
 		} catch (FileNotFoundException fn) {
 			System.out.println("Ez da fitxategia aurkitzen");
 		} catch (IOException io) {

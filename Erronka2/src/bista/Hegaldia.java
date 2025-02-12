@@ -77,7 +77,6 @@ public class Hegaldia extends JFrame {
 		
 		etorriCheckBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Mostrar o ocultar el JPanel según el estado del JCheckBox
                 etorriPanel.setVisible(etorriCheckBox.isSelected());
             }
         });
