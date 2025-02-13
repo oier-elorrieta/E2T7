@@ -171,23 +171,21 @@ public class Erregistratu extends JFrame {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Recoger los datos del formulario
-				String izenaAgentzia = agentziaIzenaField.getText(); // Nombre de la agencia
-				String logoAgentzia = logoaField.getText(); // Logo o color (según cómo lo uses)
-				String kolorea = colorHexField.getText(); // Color de la agencia
-				String erabiltzailea = erabiltzaileField.getText(); // Nombre de usuario
-				String pasahitza = new String(pasahitzaField.getPassword()); // Contraseña
+
+				String izenaAgentzia = agentziaIzenaField.getText();
+				String logoAgentzia = logoaField.getText();
+				String kolorea = colorHexField.getText();
+				String erabiltzailea = erabiltzaileField.getText();
+				String pasahitza = new String(pasahitzaField.getPassword());
 				String agentziaMota = agentziaChoice.getSelectedItem();
 				String langileKopuru = "";
 
-				// Comprobar si todos los campos obligatorios están rellenos
 				if (izenaAgentzia.isEmpty() || erabiltzailea.isEmpty() || pasahitza.isEmpty()) {
-					// Mostrar un mensaje de error si faltan campos obligatorios
+
 					System.out.println("Mesedez, Bete beharrezkoak diren hutsune guztiak.");
 					return;
 				}
 
-				// Obtener el tipo de agencia seleccionado
 				if (txikiaRadioButton.isSelected()) {
 					langileKopuru = "L1";
 				} else if (ertainaRadioButton.isSelected()) {
@@ -207,14 +205,10 @@ public class Erregistratu extends JFrame {
 					agentziaMota = "A3";
 				}
 
-				// Crear un objeto Agentzia con los datos del formulario
 				Agentzia agentziaBerria = new Agentzia(izenaAgentzia, logoAgentzia, kolorea, langileKopuru,
 						agentziaMota, pasahitza, erabiltzailea);
 
-				// Llamar al DAO para insertar la nueva agencia
 				AgentziaDAO agentziaDAO = new AgentziaDAO();
-				// agentziaDAO.setConnection(((ConnectDB) konexioa).getConnection()); //
-				// Establecer la conexión con el DAO
 
 				boolean exito = agentziaDAO.sartuAgentzia(agentziaBerria);
 
@@ -224,7 +218,16 @@ public class Erregistratu extends JFrame {
 					System.out.println("Errorea Agentzia erregistratzen");
 				}
 
-				// Cerrar la ventana de registro después de la inserción
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Ongietorri frame = new Ongietorri();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 				dispose();
 			}
 		});

@@ -12,7 +12,7 @@ public class AireportuaDAO {
 	private static Connection konexioa;
 
 	public void setConnection(Connection konexioa) {
-		this.konexioa = konexioa;
+		AireportuaDAO.konexioa = konexioa;
 	}
 
 	public ArrayList<Aireportua> lortuAireportuGuztiak() {
@@ -20,10 +20,10 @@ public class AireportuaDAO {
 	    String kontsulta = "SELECT kodAireportua, hiria FROM aireportua";
 	    try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(kontsulta)) {
 	        while (rs.next()) {
-	            // Crear el objeto Aireportua y añadirlo a la lista
+
 	            String kodAireportua = rs.getString("kodAireportua");
 	            String hiria = rs.getString("hiria");
-	            Aireportua aireportua = new Aireportua(kodAireportua, hiria);  // Ajusta según el constructor de tu clase Aireportua
+	            Aireportua aireportua = new Aireportua(kodAireportua, hiria);
 	            aireportuak.add(aireportua);
 	        }
 	    } catch (SQLException e) {

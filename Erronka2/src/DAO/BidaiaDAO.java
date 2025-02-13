@@ -5,22 +5,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import modeloa.Agentzia;
 import modeloa.Bidaia;
 import modeloa.Zerbitzua;
-import DAO.ZerbitzuakDAO;
 
 public class BidaiaDAO {
 
 	private static Connection konexioa;
 
 	public void setConnection(Connection konexioa) {
-		this.konexioa = konexioa;
+		BidaiaDAO.konexioa = konexioa;
 	}
 	
 	 ZerbitzuakDAO zerbitzuaDAO = new ZerbitzuakDAO();
 	
-	public static ArrayList<Bidaia> lortuBidaiAgentzia(int erabiltzailezbk) {
+	public ArrayList<Bidaia> lortuBidaiAgentzia(int erabiltzailezbk) {
 		ArrayList<Bidaia> bidaiak = new ArrayList<>();
 		String sql = "SELECT IDBidaia, izenaBidaia, dataAmaiera, dataIrteera, deskribapenaBidaia, b.KodHerrialdea, a.izenaAgentzia, b.IDAgentzia, b.kodBidaiaMota, m.deskribapenaBidaiMota, DATEDIFF(dataAmaiera, dataIrteera) AS iraupena FROM Bidaia b JOIN bidaia_mota m ON b.kodBidaiaMota = m.kodBidaiaMota JOIN agentzia a ON b.IDAgentzia = a.IDAgentzia where a.IDAgentzia =" + erabiltzailezbk;
 
@@ -52,7 +50,7 @@ public class BidaiaDAO {
 
 	}
 	
-	public static void ezabatuBidaiDB(String IDBidaia) {
+	public void ezabatuBidaiDB(String IDBidaia) {
 		
 		String sql = "DELETE FROM bidaia WHERE IDbidaia =" + IDBidaia +";";
 		
@@ -85,11 +83,8 @@ public class BidaiaDAO {
 	        return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        System.out.println("Error al insertar Agentzia: " + e.getMessage());
+	        System.out.println("Errorea Agentzia sartzen: " + e.getMessage());
 	        return false;
-	    } catch (Exception w) {
-	    	System.out.println(w.getMessage());
-			return false;
 	    }
 		
 

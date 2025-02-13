@@ -33,7 +33,7 @@ public class Zerbitzua {
 	private String bueltaOrdutegia;
 	private int mota;
 
-	// Constructor de Ostatua Kodearekin
+	// Ostatua Kodearekin
 	public Zerbitzua(int ostatuKodea, double prezioaOstatua, String sarreraEguna, String irteeraEguna,
 			String logelaMota, String izenaOstatua, int mota) {
 		this.ostatuKodea = ostatuKodea;
@@ -45,7 +45,7 @@ public class Zerbitzua {
 		this.mota = mota;
 	}
 
-	// Constructor de Ostatua kode gabe
+	// Ostatua kode gabe
 	public Zerbitzua(double prezioaOstatua, String ostatuaHiria, String sarreraEguna, String irteeraEguna,
 			String logelaMota, String izenaOstatua, int bidaiaOs, int mota) {
 
@@ -58,7 +58,7 @@ public class Zerbitzua {
 		this.mota = mota;
 	}
 
-	// Constructor Beste Zerbitzuak kodearekin
+	// Beste Zerbitzuak kodearekin
 	public Zerbitzua(int besteKodea, String besteZerbitzuak, double prezioaBesteZerbitzuak, String dataBesteZerbitzua,
 			String deskribapenaBesteZerbitzua, int mota) {
 		this.besteKodea = besteKodea;
@@ -69,7 +69,7 @@ public class Zerbitzua {
 		this.mota = mota;
 	}
 
-	// Constructor Beste Zerbitzuak kode gabe
+	// Beste Zerbitzuak kode gabe
 	public Zerbitzua(String besteZerbitzuak, double prezioaBesteZerbitzuak, String dataBesteZerbitzua,
 			String deskribapenaBesteZerbitzua, int bidaiaBe, int mota) {
 
@@ -80,7 +80,7 @@ public class Zerbitzua {
 		this.mota = mota;
 	}
 
-	// Constructor Hegaldia
+	// Hegaldia
 	public Zerbitzua(int hegaldia, String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea,
 			String aeroLinea, double prezioaHegaldia, String irteeraData, String irteeraOrdutegia,
 			int bidaiarenIraupena, int mota) {
@@ -97,7 +97,7 @@ public class Zerbitzua {
 
 	}
 
-	// Constructor Hegaldia kode gabe
+	// Hegaldia kode gabe
 	public Zerbitzua(String jatorrizkoAireportua, String helmugakoAireportua, String hegaldiKodea, String aeroLinea,
 			double prezioaHegaldia, String irteeraData, String irteeraOrdutegia, int bidaiarenIraupena, int IDBidaia,
 			int mota) {
@@ -114,7 +114,7 @@ public class Zerbitzua {
 
 	}
 
-	// Constructor Joanetorri
+	// Joanetorri
 	public Zerbitzua(int IDJoanEtorri, String jatorrizkoAireportua, String helmugakoAireportua, String itzuleraData,
 			String itzuleraOrdutegia, int bidaiarenIraupenaBuelta, String hegaldiKodeaBuelta, String aeroLineaBuelta,
 			int mota) {
@@ -414,7 +414,9 @@ public class Zerbitzua {
 				+ irteeraOrdutegia + ", bidaiarenIraupena=" + bidaiarenIraupena + ", itzuleraData=" + itzuleraData
 				+ ", itzuleraOrdua=" + itzuleraOrdua + ", bidaiarenIraupenaBuelta=" + bidaiarenIraupenaBuelta
 				+ ", hegaldiKodeaBuelta=" + hegaldiKodeaBuelta + ", aeroLineaBuelta=" + aeroLineaBuelta
-				+ ", dataBesteZerbitzua=" + dataBesteZerbitzua + "]";
-	}
+				+ ", dataBesteZerbitzua=" + dataBesteZerbitzua + ", deskribapenaBesteZerbitzua="
+				+ deskribapenaBesteZerbitzua + ", ostatuaHiria=" + ostatuaHiria + ", bueltaData=" + bueltaData
+				+ ", bueltaOrdutegia=" + bueltaOrdutegia + ", mota=" + mota + "]";
+	}	
 
 }

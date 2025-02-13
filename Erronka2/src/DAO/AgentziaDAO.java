@@ -21,7 +21,7 @@ public class AgentziaDAO {
 		String kontsulta = "SELECT IDAgentzia, izenaAgentzia, logoa, kolorea, Erabiltzaile, Pasahitza, kodAgMota, kodLangKop FROM agentzia";
 		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(kontsulta)) {
 			while (rs.next()) {
-				// Crear el objeto Agentzia y añadirlo a la lista
+
 				int idAgentzia = rs.getInt("IDAgentzia");
 				String izenaAgentzia = rs.getString("izenaAgentzia");
 				String logoAgentzia = rs.getString("logoa");
@@ -31,7 +31,7 @@ public class AgentziaDAO {
 				String kodAgentzia = rs.getString("kodAgMota");
 				String kodLangKop = rs.getString("kodLangKop");
 				Agentzia agentzia = new Agentzia(idAgentzia, izenaAgentzia, logoAgentzia, koloreAgentzia, erabiltzailea,
-						pasahitza, kodAgentzia, kodLangKop, null); // Ajusta según el constructor de tu clase Aireportua
+						pasahitza, kodAgentzia, kodLangKop, null);
 				agentziak.add(agentzia);
 			}
 		} catch (SQLException e) {
@@ -45,25 +45,24 @@ public class AgentziaDAO {
 
 		String sql = "SELECT Erabiltzaile FROM agentzia WHERE Erabiltzaile = ?";
 
-		// Usamos try-with-resources para asegurarnos de que los recursos se cierren
-		// correctamente
+
 		try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
-			// Establecemos el valor del parámetro en el PreparedStatement
+
 			ps.setString(1, erabiltzailea);
 
-			// Ejecutamos la consulta
+
 			ResultSet rs = ps.executeQuery();
 
-			// Si encontramos el Erabiltzaile, devolvemos el valor
+
 			if (rs.next()) {
-				return rs.getString("Erabiltzaile"); // Retorna el valor de la columna Erabiltzaile
+				return rs.getString("Erabiltzaile"); 
 			} else {
-				return null; // Si no lo encuentra, devolvemos null
+				return null; 
 			}
 
 		} catch (SQLException e) {
-			System.err.println("Error al consultar la base de datos: " + e.getMessage());
-			return null; // Si ocurre algún error, retornamos null
+			System.err.println("Errorea Datu-Basea kontsultatzen: " + e.getMessage());
+			return null;
 		}
 	}
 
@@ -71,24 +70,22 @@ public class AgentziaDAO {
 
 		String sql = "SELECT Erabiltzaile, Pasahitza FROM agentzia WHERE Erabiltzaile = ?";
 
-		// Usamos try-with-resources para asegurarnos de que los recursos se cierren
-		// correctamente
 		try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
-			// Establecemos el valor del parámetro en el PreparedStatement
+
 			ps.setString(1, erabiltzailea);
 
-			// Ejecutamos la consulta
+
 			ResultSet rs = ps.executeQuery();
 
-			// Si encontramos el Erabiltzaile, devolvemos el valor
+
 			if (rs.next()) {
-				return rs.getString("Pasahitza"); // Retorna el valor de la columna Erabiltzaile
+				return rs.getString("Pasahitza"); 
 			} else {
-				return null; // Si no lo encuentra, devolvemos null
+				return null;
 			}
 
 		} catch (SQLException e) {
-			System.err.println("Error al consultar la base de datos: " + e.getMessage());
+			System.err.println("Errorea Datu-Basea kontsultatzen: " + e.getMessage());
 			return null; // Si ocurre algún error, retornamos null
 		}
 	}
@@ -97,26 +94,38 @@ public class AgentziaDAO {
 
 		String sql = "SELECT IDAgentzia FROM agentzia WHERE Erabiltzaile = ?";
 
-		// Usamos try-with-resources para asegurarnos de que los recursos se cierren
-		// correctamente
+
 		try (PreparedStatement ps = konexioa.prepareStatement(sql)) {
-			// Establecemos el valor del parámetro en el PreparedStatement
+
 			ps.setString(1, erabiltzailea);
 
-			// Ejecutamos la consulta
 			ResultSet rs = ps.executeQuery();
 
-			// Si encontramos el Erabiltzaile, devolvemos el valor
 			if (rs.next()) {
-				return rs.getInt("IDAgentzia"); // Retorna el valor de la columna Erabiltzaile
+				return rs.getInt("IDAgentzia"); 
 			} else {
-				return -1; // Si no lo encuentra, devolvemos null
+				return -1;
 			}
 
 		} catch (SQLException e) {
-			System.err.println("Error al consultar la base de datos: " + e.getMessage());
-			return -1; // Si ocurre algún error, retornamos null
+			System.err.println("Errorea Datu-Basea kontsultatzen: " + e.getMessage());
+			return -1; 
 		}
+	}
+	
+	public static String lortuLogoa(int IDAgentzia) {
+		String url ="";
+		String sql = "SELECT logoa FROM agentzia WHERE IDAgentzia =" + IDAgentzia;
+		try (Statement stmt = konexioa.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while(rs.next()) {
+				url = rs.getString("logoa");
+			}
+			
+		} catch (Exception o) {
+			System.err.println("Ez da logoa aurkitzen");
+		}
+		return url;
+		
 	}
 
 	public boolean sartuAgentzia(Agentzia agentzia) {
@@ -126,9 +135,8 @@ public class AgentziaDAO {
 				+ agentzia.getAgentziaMota() + "', '" + agentzia.getLangileKopurua() + "');";
 
 		try (Statement stmt = konexioa.createStatement()) {
-			int filasAfectadas = stmt.executeUpdate(sql); // Ejecuta la consulta
-
-			return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
+			int filasAfectadas = stmt.executeUpdate(sql); 
+			return filasAfectadas > 0; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Error al insertar Agentzia: " + e.getMessage());

@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.ZerbitzuakDAO;
-import modeloa.Bidaia;
-
 public class Kudeatzaile {
 
 	public static ArrayList<Bidaia> ezabatuBidaia(JTable taula, ArrayList<Bidaia> bidaiak) {
@@ -33,29 +30,42 @@ public class Kudeatzaile {
 		return bidaiak;
 
 	}
-	
+
 	public static void ezabatuZerbitzua(Bidaia bidaia, JTable taula, String IDBidaia, String IDZerbitzua) {
-		
+
 		int row = taula.getSelectedRow();
 		if (row != -1) {
-		String zerbitzuMota = (String) taula.getValueAt(row, 1);
-		ArrayList<Zerbitzua> zerbitzuak = bidaia.getZerbitzuak();
-			
-		for (int i = 0; i<zerbitzuak.size(); i++) {
-			Zerbitzua zerbitzua = zerbitzuak.get(i);
-				if (zerbitzuMota.equals("Ostatua") && zerbitzua.getMota()==2) {
+			String zerbitzuMota = (String) taula.getValueAt(row, 1);
+			ArrayList<Zerbitzua> zerbitzuak = bidaia.getZerbitzuak();
+
+			for (int i = 0; i < zerbitzuak.size(); i++) {
+				Zerbitzua zerbitzua = zerbitzuak.get(i);
+				if (zerbitzuMota.equals("Ostatua") && zerbitzua.getMota() == 2) {
 					zerbitzuak.remove(i);
-				} else if (zerbitzuMota.equals("Beste Zerbitzuak") && zerbitzua.getMota()==3) {
+				} else if (zerbitzuMota.equals("Beste Zerbitzuak") && zerbitzua.getMota() == 3) {
 					zerbitzuak.remove(i);
-				} else if (zerbitzuMota.equals("Hegaldia") && zerbitzua.getMota()==0) {
+				} else if (zerbitzuMota.equals("Hegaldia") && zerbitzua.getMota() == 0) {
 					zerbitzuak.remove(i);
-				} else if (zerbitzuMota.equals("Hegaldia (Buelta)") && zerbitzua.getMota()==1) {
+				} else if (zerbitzuMota.equals("Hegaldia (Buelta)") && zerbitzua.getMota() == 1) {
 					zerbitzuak.remove(i);
 				}
-				
+
 			}
 		}
-		
+
+	}
+	
+	public static Bidaia selectedBidaia(ArrayList<Bidaia> bidaiak, String IDLerroa) {
+
+		Bidaia selectedBidaia = new Bidaia();
+		for (Bidaia bidaia : bidaiak) {
+			if (bidaia.getIdentifikatzailea().equals(IDLerroa)) {
+				selectedBidaia = bidaia;
+				break;
+			}
+		}
+
+		return selectedBidaia;
 	}
 
 }

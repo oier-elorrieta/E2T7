@@ -5,8 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DAO.AgentziaDAO;
-import DAO.BidaiaDAO;
-import Konexioa.ConnectDB;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
@@ -15,7 +13,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
@@ -81,19 +78,22 @@ public class Ongietorri extends JFrame {
 				String erabiltzaile = erabiltzaileField.getText();
 				String pasahitza = new String(passwordField.getPassword());
 
+				@SuppressWarnings("unused")
 				AgentziaDAO agentziaDAO = new AgentziaDAO();
 
 				try {
-					if (agentziaDAO.lortuErabiltzailea(erabiltzaile).equals(erabiltzaile)) {
-						JOptionPane.showInputDialog(erabiltzaile, "FUNCIONA");
+					if (AgentziaDAO.lortuErabiltzailea(erabiltzaile).equals(erabiltzaile)) {
+
+					} else {
+						JOptionPane.showMessageDialog(erabiltzaileField, "Erabiltzailea ez da aurkitzena");
 					}
 				} catch (Exception w) {
 					JOptionPane.showMessageDialog(erabiltzaileField, "Erabiltzailea ez dago erregistratuta");
 				}
 
 				try {
-					if (agentziaDAO.lortuPasahitza(erabiltzaile).equals(pasahitza)) {
-						JOptionPane.showInputDialog(pasahitza, "FUNCIONA");
+					if (AgentziaDAO.lortuPasahitza(erabiltzaile).equals(pasahitza)) {
+						JOptionPane.showMessageDialog(sartuButton, "Ongi Etorri " + erabiltzaile);
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 								try {
@@ -106,6 +106,8 @@ public class Ongietorri extends JFrame {
 								dispose();
 							}
 						});
+					} else {
+						JOptionPane.showMessageDialog(erabiltzaileField, "Pasahitza okerra da");
 					}
 				} catch (Exception w) {
 					JOptionPane.showMessageDialog(erabiltzaileField, "Pasahitza okerra da");

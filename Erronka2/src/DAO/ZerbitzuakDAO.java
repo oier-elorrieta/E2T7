@@ -126,7 +126,7 @@ public class ZerbitzuakDAO {
 		return zerbitzuak;
 	}
 
-	public static void ezabatuZerbitzua(String IDTaula, String IDLerroaZ) {
+	public void ezabatuZerbitzua(String IDTaula, String IDLerroaZ) {
 
 		String atributoa = "";
 		if (IDTaula.equals("Ostatua")) {
@@ -171,7 +171,7 @@ public class ZerbitzuakDAO {
 			return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error al insertar Agentzia: " + e.getMessage());
+			System.out.println("Errorea ostatua sartzen: " + e.getMessage());
 			return false;
 		}
 	}
@@ -188,7 +188,7 @@ public class ZerbitzuakDAO {
 			return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error al insertar Agentzia: " + e.getMessage());
+			System.out.println("Errorea beste zerbitzuak sartzen: " + e.getMessage());
 			return false;
 		}
 	}
@@ -207,7 +207,7 @@ public class ZerbitzuakDAO {
 			return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error al insertar Agentzia: " + e.getMessage());
+			System.out.println("Errorea hegaldia sartzen: " + e.getMessage());
 			return false;
 		}
 	}
@@ -225,7 +225,7 @@ public class ZerbitzuakDAO {
 			return filasAfectadas > 0; // Devuelve true si la inserción fue exitosa
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error al insertar Agentzia: " + e.getMessage());
+			System.out.println("Errorea bueltako hegaldia sartzen: " + e.getMessage());
 			return false;
 		}
 	}

@@ -2,16 +2,23 @@ package bista;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -36,30 +43,26 @@ public class Erresuma extends JFrame {
 	private String IDtaula = "";
 	private String IDLerroa = "";
 	private Bidaia selectedBidaia;
-
+	@SuppressWarnings("unused")
+	private String url;
 	ArrayList<Bidaia> bidaiak;
+	ZerbitzuakDAO zerbitzuakDAO = new ZerbitzuakDAO();
 
-	/**
-	 * Create the frame.
-	 */
 	@SuppressWarnings("serial")
 	public Erresuma(String erabiltzaile) {
 		setTitle("Erresuma");
 
+		@SuppressWarnings("unused")
 		ConnectDB konexioa = new ConnectDB();
-		int erabiltzailezbk = AgentziaDAO.lortuID(erabiltzaile);
 
-		bidaiak = BidaiaDAO.lortuBidaiAgentzia(erabiltzailezbk);
+		int erabiltzailezbk = AgentziaDAO.lortuID(erabiltzaile);
+		url = AgentziaDAO.lortuLogoa(erabiltzailezbk);
+		BidaiaDAO bidaiaDAO = new BidaiaDAO();
+		bidaiak = bidaiaDAO.lortuBidaiAgentzia(erabiltzailezbk);
+		
+		
 
 		for (Bidaia bidaia : bidaiak) {
-			System.out.println("Bidaia Kodea: " + bidaia.getIdentifikatzailea());
-			System.out.println("Bidaia Izena: " + bidaia.getIzena());
-			System.out.println("Data Amaiera: " + bidaia.getDataAmaiera());
-			System.out.println("Data Irteera: " + bidaia.getDataIrteera());
-			System.out.println("Iraupena: " + bidaia.getIraupena());
-			System.out.println("Kod Herrialdea: " + bidaia.getHelmuga());
-			System.out.println("Izena Agentzia: " + bidaia.getAgentzia());
-			System.out.println("-------------");
 
 			bidaia.setZerbitzuak(ZerbitzuakDAO.lortuZerbitzuBidaia(bidaia.getIdentifikatzailea()));
 
@@ -73,9 +76,49 @@ public class Erresuma extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton logoButton = new JButton("LOGO");
+		JButton logoButton = new JButton("");
+		logoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		logoButton.setBounds(370, 11, 755, 202);
 		contentPane.add(logoButton);
+
+		String url = AgentziaDAO.lortuLogoa(erabiltzailezbk);
+		if (url == null) {
+			logoButton.setText(erabiltzaile);
+			logoButton.setFont(new Font("Arial", Font.BOLD, 50));
+		} else {
+			if (!url.startsWith("http://") && !url.startsWith("https://")) {
+				url = "https://" + url;
+			}
+
+			try {
+
+				@SuppressWarnings("deprecation")
+				URL imageURL = new URL(url);
+
+				InputStream inputStream = imageURL.openStream();
+				Image image = ImageIO.read(inputStream);
+
+				ImageIcon icon = new ImageIcon(image);
+
+				logoButton.setIcon(icon);
+
+				logoButton.setBounds(370, 11, 755, 202);
+
+				contentPane.add(logoButton);
+
+				inputStream.close();
+
+				logoButton.setBounds(370, 11, 755, 202);
+				contentPane.add(logoButton);
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(contentPane, "Irudia ezin da kargatu: " + e.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
 
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, // No se pasan filas aquí
 				new String[] { "ID", "Izena", "Deskribapena", "Irteera", "Amaiera", "Bidaia Mota", "Iraupena",
@@ -88,34 +131,27 @@ public class Erresuma extends JFrame {
 			}
 		};
 
-		// Crear la tabla y asignarle el modelo
 		bidaiaTable = new JTable(model);
 
-		// Modificar el encabezado
 		JTableHeader header = bidaiaTable.getTableHeader();
-		header.setBackground(Color.LIGHT_GRAY); // Color del encabezado
-		header.setForeground(Color.BLACK); // Color del texto del encabezado
+		header.setBackground(Color.LIGHT_GRAY);
+		header.setForeground(Color.BLACK);
 
-		// Configurar el tamaño de las columnas (puedes ajustarlo si lo necesitas)
 		bidaiaTable.getColumnModel().getColumn(2).setPreferredWidth(93);
 		bidaiaTable.setBounds(122, 261, 1115, 177);
 
-		// Agregar la tabla al panel
 		JScrollPane scrollPane = new JScrollPane(bidaiaTable);
 		scrollPane.setBounds(122, 261, 1115, 177);
 		contentPane.add(scrollPane);
 
-		// Errenkadad bete
 		for (Bidaia bidaia : bidaiak) {
 			String[] row = { String.valueOf(bidaia.getIdentifikatzailea()), bidaia.getIzena(), bidaia.getDeskribapena(),
 					bidaia.getDataIrteera(), bidaia.getDataAmaiera(), bidaia.getBidaiaMota(),
-					String.valueOf(bidaia.getIraupena()), // Convertir la duración a String
-					bidaia.getHelmuga()
+					String.valueOf(bidaia.getIraupena()), bidaia.getHelmuga()
 
 			};
 
-			// Obtener el DefaultTableModel y agregar la fila
-			model.addRow(row); // Usamos addRow del DefaultTableModel
+			model.addRow(row);
 		}
 
 		bidaiaTable.addMouseListener(new MouseAdapter() {
@@ -139,35 +175,38 @@ public class Erresuma extends JFrame {
 					}
 				}
 
-				System.out.println(bidaiak.get(bidaiaTable.getSelectedRow()).getIdentifikatzailea());
 			}
 
 		});
 
 		zerbitzuTable = new JTable();
 		zerbitzuTable.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "ID Zerbitzual", "Zerbitzu Mota", "Izena", "Data", "Prezioa" }));
+				new String[] { "ID Zerbitzual", "Zerbitzu Mota", "Izena", "Prezioa", "Data" }));
 		zerbitzuTable.getColumnModel().getColumn(1).setPreferredWidth(91);
 		zerbitzuTable.setBounds(122, 495, 1115, 177);
 		contentPane.add(zerbitzuTable);
 
+		JTableHeader zerbitzuHeader = zerbitzuTable.getTableHeader();
+		zerbitzuHeader.setBackground(Color.LIGHT_GRAY);
+		zerbitzuHeader.setForeground(Color.BLACK);
+
+		zerbitzuTable.getColumnModel().getColumn(1).setPreferredWidth(91);
+		zerbitzuTable.setBounds(122, 495, 1115, 177);
+		contentPane.add(zerbitzuTable);
+
+		JScrollPane scrollPaneZerbitzu = new JScrollPane(zerbitzuTable);
+		scrollPaneZerbitzu.setBounds(122, 495, 1115, 177);
+		contentPane.add(scrollPaneZerbitzu);
+
 		JButton ezabatuBButton = new JButton("EZABATU");
 		ezabatuBButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				BidaiaDAO.ezabatuBidaiDB(bidaiak.get(bidaiaTable.getSelectedRow()).getIdentifikatzailea());
-
-				bidaiak = Kudeatzaile.ezabatuBidaia(bidaiaTable, bidaiak);
-				for (Bidaia bidaia : bidaiak) {
-					System.out.println("Bidaia Kodea: " + bidaia.getIdentifikatzailea());
-					System.out.println("Bidaia Izena: " + bidaia.getIzena());
-					System.out.println("Data Amaiera: " + bidaia.getDataAmaiera());
-					System.out.println("Data Irteera: " + bidaia.getDataIrteera());
-					System.out.println("Iraupena: " + bidaia.getIraupena());
-					System.out.println("Kod Herrialdea: " + bidaia.getHelmuga());
-					System.out.println("Izena Agentzia: " + bidaia.getAgentzia());
-					System.out.println("-------------");
+				try {
+					bidaiaDAO.ezabatuBidaiDB(bidaiak.get(bidaiaTable.getSelectedRow()).getIdentifikatzailea());
+				} catch (Exception q) {
+					JOptionPane.showMessageDialog(ezabatuBButton, "Aukeratu Bidai bat, mesedez.");
 				}
+				bidaiak = Kudeatzaile.ezabatuBidaia(bidaiaTable, bidaiak);
 
 				bidaiaTable.repaint();
 			}
@@ -194,10 +233,14 @@ public class Erresuma extends JFrame {
 		ezabatuZButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				ZerbitzuakDAO.ezabatuZerbitzua(IDtaula, IDLerroaZ);
+				try {
+					zerbitzuakDAO.ezabatuZerbitzua(IDtaula, IDLerroaZ);
+				} catch (Exception q) {
+					JOptionPane.showMessageDialog(ezabatuBButton, "Aukeratu Bidai bat, mesedez.");
+				}
 				Kudeatzaile.ezabatuZerbitzua(selectedBidaia, zerbitzuTable, IDLerroa, IDLerroaZ);
 
-				bidaiaTable.repaint();
+				zerbitzuTable.repaint();
 			}
 
 		});
@@ -225,6 +268,12 @@ public class Erresuma extends JFrame {
 		contentPane.add(irtenButton);
 
 		JButton gordeButton = new JButton("GORDE");
+		gordeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bidaiaTable.repaint();
+				zerbitzuTable.repaint();
+			}
+		});
 		gordeButton.setBounds(805, 759, 182, 106);
 		contentPane.add(gordeButton);
 
@@ -277,19 +326,18 @@ public class Erresuma extends JFrame {
 						if (row != -1) {
 							IDLerroa = (String) bidaiaTable.getValueAt(row, 0);
 
-							Bidaia selectedBidaia = selectedBidaia(bidaiak, IDLerroa);
+							Bidaia selectedBidaia = Kudeatzaile.selectedBidaia(bidaiak, IDLerroa);
 
 							if (selectedBidaia != null) {
 								updateZerbitzuTable(selectedBidaia.getZerbitzuak());
 							}
 						}
 
-						System.out.println(bidaiak.get(bidaiaTable.getSelectedRow()).getIdentifikatzailea());
 					}
 
 				});
 
-				Aurrekontua.sortuAurrekontua(selectedBidaia(bidaiak, IDLerroa));
+				Aurrekontua.sortuAurrekontua(Kudeatzaile.selectedBidaia(bidaiak, IDLerroa));
 			}
 		});
 		aurrekontuaButton.setBounds(1294, 264, 129, 48);
@@ -297,7 +345,6 @@ public class Erresuma extends JFrame {
 
 	}
 
-	// REVISAR LOCALIZACIÓN DEL MÉTODO
 	private void updateZerbitzuTable(ArrayList<Zerbitzua> zerbitzuak) {
 
 		DefaultTableModel zerbitzuModel = (DefaultTableModel) zerbitzuTable.getModel();
@@ -329,16 +376,4 @@ public class Erresuma extends JFrame {
 		}
 	}
 
-	private Bidaia selectedBidaia(ArrayList<Bidaia> bidaiak, String IDLerroa) {
-
-		Bidaia selectedBidaia = new Bidaia();
-		for (Bidaia bidaia : bidaiak) {
-			if (bidaia.getIdentifikatzailea().equals(IDLerroa)) {
-				selectedBidaia = bidaia;
-				break;
-			}
-		}
-
-		return selectedBidaia;
-	}
 }

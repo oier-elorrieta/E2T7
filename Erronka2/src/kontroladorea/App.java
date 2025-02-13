@@ -17,10 +17,9 @@ public class App extends JFrame {
 		konexioa.conectar();
 
 		if (konexioa.isConnected()) {
-			System.out.println("Conexión exitosa a la base de datos.");
 		} else {
-			System.out.println("La conexión no se pudo establecer.");
-			return; // Termina el programa si no se pudo conectar
+			System.out.println("Konexioa ez da seteatu");
+			return;
 		}
 
 		AireportuaDAO aireportuaDAO = new AireportuaDAO();
